@@ -1,0 +1,177 @@
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="Yukonda.UI.MainWindow" Title="Yukonda.UI">
+    <Window.Styles>
+        <Style Selector="DockPanel.Connected">
+            <Setter Property="IsVisible" Value="True"></Setter>
+        </Style>
+        <Style Selector="DockPanel.NotConnected">
+            <Setter Property="IsVisible" Value="False"></Setter>
+        </Style>
+
+        <Style Selector="Border.connectionView">
+            <Setter Property="Background" Value="LightGray"></Setter>
+            <Setter Property="Padding" Value="20"></Setter>
+            <Setter Property="CornerRadius" Value="0"></Setter>
+            <Setter Property="BoxShadow" Value="0 5 20 20 #20000000"></Setter>
+        </Style>
+
+        <Style  Selector="Border.connectionView TextBox">
+            <Setter Property="Background" Value="#FFFFFF"></Setter>
+            <Setter Property="CornerRadius" Value="0"></Setter>
+            <Setter Property="MinHeight" Value="2"></Setter>
+            <Setter Property="FontSize" Value="10"></Setter>
+            <Setter Property="Height" Value="24"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+        </Style>
+        <Style  Selector="Border.connectionView ComboBox">
+            <Setter Property="Background" Value="#FFFFFF"></Setter>
+            <Setter Property="CornerRadius" Value="5"></Setter>
+            <Setter Property="Height" Value="24"></Setter>
+            <Setter Property="MinHeight" Value="2"></Setter>
+            <Setter Property="Width" Value="200"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="FontSize" Value="10"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+        </Style>
+
+        <Style  Selector="TextBox:focus:focus /template/ Border">
+            <Setter Property="Background" Value="goldenrod"></Setter>
+            <Setter Property="TextBlock.Foreground" Value="#FFFFFF"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            
+        </Style>
+    </Window.Styles>
+    <Grid>
+        <Border Classes="connectionView" DataContext="{Binding ConnectionView}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Width="300">
+            <StackPanel Spacing="5">
+                <Image Width="42"
+                       Height="42">
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                                <DrawingGroup Opacity="1">
+                                    <DrawingGroup Opacity="1">
+                                        <DrawingGroup Opacity="1">
+                                            <DrawingGroup Opacity="1">
+                                                <DrawingGroup Opacity="1">
+                                                    <DrawingGroup Opacity="1">
+                                                        <DrawingGroup Opacity="1">
+                                                            <DrawingGroup Opacity="1">
+                                                                <DrawingGroup Opacity="1">
+                                                                    <DrawingGroup Opacity="1">
+                                                                        <DrawingGroup Opacity="1">
+                                                                            <DrawingGroup Opacity="1">
+                                                                                <DrawingGroup Opacity="1">
+                                                                                    <DrawingGroup Opacity="1">
+                                                                                        <DrawingGroup Opacity="1">
+                                                                                            <DrawingGroup Opacity="1">
+                                                                                                <DrawingGroup Opacity="1">
+                                                                                                    <DrawingGroup Opacity="1">
+                                                                                                        <GeometryDrawing Brush="#FFF9710D">
+                                                                                                            <GeometryDrawing.Geometry>
+                                                                                                                <EllipseGeometry RadiusX="256" RadiusY="256" Center="256,256"/>
+                                                                                                            </GeometryDrawing.Geometry>
+                                                                                                        </GeometryDrawing>
+                                                                                                    </DrawingGroup>
+                                                                                                </DrawingGroup>
+                                                                                            </DrawingGroup>
+                                                                                        </DrawingGroup>
+                                                                                    </DrawingGroup>
+                                                                                </DrawingGroup>
+                                                                            </DrawingGroup>
+                                                                        </DrawingGroup>
+                                                                    </DrawingGroup>
+                                                                </DrawingGroup>
+                                                            </DrawingGroup>
+                                                        </DrawingGroup>
+                                                    </DrawingGroup>
+                                                </DrawingGroup>
+                                            </DrawingGroup>
+                                        </DrawingGroup>
+                                    </DrawingGroup>
+                                    <GeometryDrawing Brush="#FFE54C00" Geometry="F1 M512,512z M0,0z M512,256C512,250.687,511.819,245.418,511.499,240.185L453.216,181.902C442.935,170.507,424.47,166.237,424.47,166.237L364.708,106.648C364.708,106.648,294.336,98.697,283.384,104.037L255.583,76.407 67.606,307.675 141.059,381.228 138.413,428.25 220.079,509.479C231.818,511.128 243.807,512 256,512 397.385,512 512,397.385 512,256z"/>
+                                    <DrawingGroup Opacity="1">
+                                        <GeometryDrawing Brush="#FFF4F2EF" Geometry="F1 M512,512z M0,0z M385.911,151.96C385.703,151.96 385.497,151.966 385.29,151.968 380.352,110.91 345.419,79.079 303.03,79.079 289.151,79.079 276.08,82.508 264.587,88.538 250.042,64.654 223.759,48.704 193.75,48.704 147.976,48.704 110.869,85.811 110.869,131.585 110.869,134.233 111.006,136.849 111.249,139.434 67.817,149.564 35.4630000000001,188.522 35.4630000000001,235.039 35.4630000000001,289.257 79.4160000000001,333.21 133.634,333.21L385.909,333.21C435.96,333.21 476.534,292.636 476.534,242.585 476.534,192.534 435.962,151.96 385.911,151.96z"/>
+                                        <GeometryDrawing Brush="#FFE5E1DC" Geometry="F1 M512,512z M0,0z M476.534,242.58C476.534,292.63,435.958,333.206,385.908,333.206L256,333.206 256,76.884C259.199,80.5 262.06,84.398 264.584,88.532 276.074,82.505 289.153,79.081 303.031,79.081 345.421,79.081 380.354,110.904 385.288,151.965L385.908,151.965C435.957,151.965,476.534,192.53,476.534,242.58z"/>
+                                        <DrawingGroup Opacity="1">
+                                            <GeometryDrawing Brush="#FF96928F" Geometry="F1 M512,512z M0,0z M132.418,209.538L379.581,209.538 379.581,415.292 132.418,415.292z"/>
+                                            <GeometryDrawing Brush="#FF726E6B" Geometry="F1 M512,512z M0,0z M255.999,209.539L379.581,209.539 379.581,415.294 255.999,415.294z"/>
+                                            <GeometryDrawing Brush="#FF96928F">
+                                                <GeometryDrawing.Geometry>
+                                                    <EllipseGeometry RadiusX="123.581" RadiusY="36.217" Center="256,209.538"/>
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <DrawingGroup Opacity="1">
+                                                <DrawingGroup Opacity="1">
+                                                    <DrawingGroup Opacity="1">
+                                                        <GeometryDrawing Brush="#FF726E6B" Geometry="F1 M512,512z M0,0z M379.582,209.539C379.582,229.537,324.249,245.756,256,245.756L256,173.321C324.249,173.322,379.582,189.532,379.582,209.539z"/>
+                                                    </DrawingGroup>
+                                                </DrawingGroup>
+                                            </DrawingGroup>
+                                            <DrawingGroup Opacity="1">
+                                                <DrawingGroup Opacity="1">
+                                                    <DrawingGroup Opacity="1">
+                                                        <GeometryDrawing Brush="#FFD8D5D2" Geometry="F1 M512,512z M0,0z M256,245.755C187.748,245.755,132.419,229.54,132.419,209.538L132.419,257.15C132.419,277.152 187.748,293.367 256,293.367 324.252,293.367 379.581,277.152 379.581,257.15L379.581,209.538C379.581,229.54,324.252,245.755,256,245.755z"/>
+                                                    </DrawingGroup>
+                                                </DrawingGroup>
+                                            </DrawingGroup>
+                                            <DrawingGroup Opacity="1">
+                                                <DrawingGroup Opacity="1">
+                                                    <DrawingGroup Opacity="1">
+                                                        <GeometryDrawing Brush="#FFD8D5D2" Geometry="F1 M512,512z M0,0z M256,325.718C187.748,325.718,132.419,309.503,132.419,289.501L132.419,337.113C132.419,357.115 187.748,373.33 256,373.33 324.252,373.33 379.581,357.115 379.581,337.113L379.581,289.501C379.581,309.503,324.252,325.718,256,325.718z"/>
+                                                    </DrawingGroup>
+                                                </DrawingGroup>
+                                            </DrawingGroup>
+                                            <DrawingGroup Opacity="1">
+                                                <DrawingGroup Opacity="1">
+                                                    <DrawingGroup Opacity="1">
+                                                        <GeometryDrawing Brush="#FFB7B4B2" Geometry="F1 M512,512z M0,0z M379.58,289.496L379.58,337.116C379.58,357.116,324.25,373.326,256,373.326L256,325.716C324.25,325.716,379.58,309.506,379.58,289.496z"/>
+                                                    </DrawingGroup>
+                                                </DrawingGroup>
+                                            </DrawingGroup>
+                                            <DrawingGroup Opacity="1">
+                                                <DrawingGroup Opacity="1">
+                                                    <DrawingGroup Opacity="1">
+                                                        <GeometryDrawing Brush="#FFD8D5D2" Geometry="F1 M512,512z M0,0z M256,405.681C187.748,405.681,132.419,389.466,132.419,369.464L132.419,417.076C132.419,437.078 187.748,453.293 256,453.293 324.252,453.293 379.581,437.078 379.581,417.076L379.581,369.464C379.581,389.466,324.252,405.681,256,405.681z"/>
+                                                    </DrawingGroup>
+                                                </DrawingGroup>
+                                            </DrawingGroup>
+                                            <DrawingGroup Opacity="1">
+                                                <DrawingGroup Opacity="1">
+                                                    <DrawingGroup Opacity="1">
+                                                        <GeometryDrawing Brush="#FFB7B4B2" Geometry="F1 M512,512z M0,0z M379.58,369.466L379.58,417.076C379.58,437.076,324.25,453.296,256,453.296L256,405.676C324.25,405.676,379.58,389.466,379.58,369.466z"/>
+                                                    </DrawingGroup>
+                                                </DrawingGroup>
+                                            </DrawingGroup>
+                                        </DrawingGroup>
+                                        <DrawingGroup Opacity="1">
+                                            <DrawingGroup Opacity="1">
+                                                <DrawingGroup Opacity="1">
+                                                    <GeometryDrawing Brush="#FFB7B4B2" Geometry="F1 M512,512z M0,0z M379.58,209.536L379.58,257.146C379.58,277.156,324.25,293.366,256,293.366L256,245.756C324.25,245.756,379.58,229.536,379.58,209.536z"/>
+                                                </DrawingGroup>
+                                            </DrawingGroup>
+                                        </DrawingGroup>
+                                    </DrawingGroup>
+                                </DrawingGroup>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image>
+                <TextBlock Text="Подключение к базе данных"
+                           TextAlignment="Center"/>
+                <ComboBox SelectedItem="{Binding DbProvider}">
+                    <ComboBoxItem>SQLite</ComboBoxItem>
+                    <ComboBoxItem>PostgreSQL</ComboBoxItem>
+                </ComboBox>
+                <TextBox Watermark="Host" Text="{Binding Host}"/>
+                <TextBox Watermark="Port" Text="{Binding Port}"/>
+                <TextBox Watermark="Username" Text="{Binding Username}"/>
+                <TextBox Watermark="Password" PasswordChar="*" Text="{Binding Password}"/>
+                <TextBox Watermark="Database" Text="{Binding Database}"/>
+                <Button Command="{Binding $parent[Window].DataContext.ConnectCommand}"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

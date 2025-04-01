@@ -1,0 +1,15 @@
+\\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\bin\Debug\net8.0\Yukonda.Core.deps.json
+\\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\bin\Debug\net8.0\Yukonda.Core.dll
+\\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\bin\Debug\net8.0\Yukonda.Core.pdb
+\\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.csproj.AssemblyReference.cache
+\\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.GeneratedMSBuildEditorConfig.editorconfig
+\\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.AssemblyInfoInputs.cache
+\\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.AssemblyInfo.cs
+\\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.csproj.CoreCompileInputs.cache
+\\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.sourcelink.json
+\\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.csproj.Fody.CopyLocal.cache
+\\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.csproj.Fody.RuntimeCopyLocal.cache
+\\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.dll
+\\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\refint\Yukonda.Core.dll
+\\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.pdb
+\\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\ref\Yukonda.Core.dll
