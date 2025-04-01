@@ -13,3 +13,18 @@
 \\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\refint\Yukonda.Core.dll
 \\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.pdb
 \\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\ref\Yukonda.Core.dll
+C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\bin\Debug\net8.0\Yukonda.Core.deps.json
+C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\bin\Debug\net8.0\Yukonda.Core.dll
+C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\bin\Debug\net8.0\Yukonda.Core.pdb
+C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.csproj.AssemblyReference.cache
+C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.AssemblyInfoInputs.cache
+C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.AssemblyInfo.cs
+C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.csproj.CoreCompileInputs.cache
+C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.sourcelink.json
+C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.csproj.Fody.CopyLocal.cache
+C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.csproj.Fody.RuntimeCopyLocal.cache
+C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.dll
+C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\refint\Yukonda.Core.dll
+C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\Yukonda.Core.pdb
+C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\obj\Debug\net8.0\ref\Yukonda.Core.dll

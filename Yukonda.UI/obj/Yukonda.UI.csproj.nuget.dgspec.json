@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "\\\\301p\\301share\\ИС-201\\БД\\Бойцов Дмитрий\\Yukonda\\Yukonda\\Yukonda.UI\\Yukonda.UI.csproj": {}
+    "C:\\Users\\student\\Desktop\\Yukonda\\Yukonda\\Yukonda.UI\\Yukonda.UI.csproj": {}
   },
   "projects": {
-    "\\\\301p\\301share\\ИС-201\\БД\\Бойцов Дмитрий\\Yukonda\\Yukonda\\Yukonda.Core\\Yukonda.Core.csproj": {
+    "C:\\Users\\student\\Desktop\\Yukonda\\Yukonda\\Yukonda.Core\\Yukonda.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\301p\\301share\\ИС-201\\БД\\Бойцов Дмитрий\\Yukonda\\Yukonda\\Yukonda.Core\\Yukonda.Core.csproj",
+        "projectUniqueName": "C:\\Users\\student\\Desktop\\Yukonda\\Yukonda\\Yukonda.Core\\Yukonda.Core.csproj",
         "projectName": "Yukonda.Core",
-        "projectPath": "\\\\301p\\301share\\ИС-201\\БД\\Бойцов Дмитрий\\Yukonda\\Yukonda\\Yukonda.Core\\Yukonda.Core.csproj",
+        "projectPath": "C:\\Users\\student\\Desktop\\Yukonda\\Yukonda\\Yukonda.Core\\Yukonda.Core.csproj",
         "packagesPath": "C:\\Users\\student\\.nuget\\packages\\",
-        "outputPath": "\\\\301p\\301share\\ИС-201\\БД\\Бойцов Дмитрий\\Yukonda\\Yukonda\\Yukonda.Core\\obj\\",
+        "outputPath": "C:\\Users\\student\\Desktop\\Yukonda\\Yukonda\\Yukonda.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\student\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -84,14 +84,14 @@
         }
       }
     },
-    "\\\\301p\\301share\\ИС-201\\БД\\Бойцов Дмитрий\\Yukonda\\Yukonda\\Yukonda.UI\\Yukonda.UI.csproj": {
+    "C:\\Users\\student\\Desktop\\Yukonda\\Yukonda\\Yukonda.UI\\Yukonda.UI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\301p\\301share\\ИС-201\\БД\\Бойцов Дмитрий\\Yukonda\\Yukonda\\Yukonda.UI\\Yukonda.UI.csproj",
+        "projectUniqueName": "C:\\Users\\student\\Desktop\\Yukonda\\Yukonda\\Yukonda.UI\\Yukonda.UI.csproj",
         "projectName": "Yukonda.UI",
-        "projectPath": "\\\\301p\\301share\\ИС-201\\БД\\Бойцов Дмитрий\\Yukonda\\Yukonda\\Yukonda.UI\\Yukonda.UI.csproj",
+        "projectPath": "C:\\Users\\student\\Desktop\\Yukonda\\Yukonda\\Yukonda.UI\\Yukonda.UI.csproj",
         "packagesPath": "C:\\Users\\student\\.nuget\\packages\\",
-        "outputPath": "\\\\301p\\301share\\ИС-201\\БД\\Бойцов Дмитрий\\Yukonda\\Yukonda\\Yukonda.UI\\obj\\",
+        "outputPath": "C:\\Users\\student\\Desktop\\Yukonda\\Yukonda\\Yukonda.UI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\student\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -106,8 +106,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "\\\\301p\\301share\\ИС-201\\БД\\Бойцов Дмитрий\\Yukonda\\Yukonda\\Yukonda.Core\\Yukonda.Core.csproj": {
-                "projectPath": "\\\\301p\\301share\\ИС-201\\БД\\Бойцов Дмитрий\\Yukonda\\Yukonda\\Yukonda.Core\\Yukonda.Core.csproj"
+              "C:\\Users\\student\\Desktop\\Yukonda\\Yukonda\\Yukonda.Core\\Yukonda.Core.csproj": {
+                "projectPath": "C:\\Users\\student\\Desktop\\Yukonda\\Yukonda\\Yukonda.Core\\Yukonda.Core.csproj"
               }
             }
           }

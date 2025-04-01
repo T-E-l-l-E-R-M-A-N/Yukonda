@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Bmu2sjOEjYc=",
+  "dgSpecHash": "W2mocAseCtc=",
   "success": true,
-  "projectFilePath": "\\\\301p\\301share\\ИС-201\\БД\\Бойцов Дмитрий\\Yukonda\\Yukonda\\Yukonda.Core\\Yukonda.Core.csproj",
+  "projectFilePath": "C:\\Users\\student\\Desktop\\Yukonda\\Yukonda\\Yukonda.Core\\Yukonda.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\student\\.nuget\\packages\\dapper\\2.1.66\\dapper.2.1.66.nupkg.sha512",
     "C:\\Users\\student\\.nuget\\packages\\fody\\6.6.4\\fody.6.6.4.nupkg.sha512",

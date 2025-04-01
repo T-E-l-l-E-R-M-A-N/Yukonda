@@ -9,6 +9,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Yukonda.Core
-build_property.ProjectDir = \\301p\301share\ИС-201\БД\Бойцов Дмитрий\Yukonda\Yukonda\Yukonda.Core\
+build_property.ProjectDir = C:\Users\student\Desktop\Yukonda\Yukonda\Yukonda.Core\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

@@ -8,6 +8,10 @@ using Npgsql;
 
 namespace Yukonda.Core
 {
+    public abstract class DbProvider
+    {
+        public string Name {get;set;}
+    }
     public class MainWindowViewModel : BindableBase
     {
         public DbConnection Connection { get; set; }
@@ -68,7 +72,7 @@ namespace Yukonda.Core
 
             Tables.Clear();
             IEnumerable<string> tables = null!;
-            switch (ConnectionView.DbProvider)
+            switch (ConnectionView.DbProvider.Name)
             {
                 case "PostgreSQL":
                     tables = Connection.Query<string>("SELECT table_name FROM information.schema.tables WHERE table_schema = \"public\";");
@@ -96,12 +100,13 @@ namespace Yukonda.Core
 
                 string connectionString;
 
-                switch (ConnectionView.DbProvider)
+                switch (ConnectionView.DbProvider.Name)
                 {
                     case "PostgreSQL":
                         connectionString = $"Host={ConnectionView.Host};Port={ConnectionView.Port};Username={ConnectionView.Username};Password={ConnectionView.Password};Database={ConnectionView.Database}";
                         Connection = new NpgsqlConnection(connectionString);
-                        Console.WriteLine(Connection.ConnectionString);
+                        var result = Connection.Query("SELECT name FROM Customers WHERE id < 10;");
+                        Console.WriteLine(result);
                         break;
                     case "SQLite":
                         connectionString = $"Data Source={ConnectionView.Database}.db";

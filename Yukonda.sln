@@ -3,6 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yukonda.Core", "Yukonda.Core\Yukonda.Core.csproj", "{0CAC02FB-BCF7-61C3-4707-CDB777599960}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yukonda.UI", "Yukonda.UI\Yukonda.UI.csproj", "{0CAC02FB-BCF7-61C3-4707-CDB777599960}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
