@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              x:Class="Yukonda.UI.TableSelectControl"
+              FontSize="32">
+
+    <Border MinWidth="640"
+            Height="50"
+            Background="#FFF">
+        <ListBox Items="{Binding Tables}"
+                 SelectedItem="{Binding CurrentTable}"
+                 Margin="70,0,0,0"
+                 Background="Transparent"
+                 BorderBrush="Transparent"
+                 VerticalAlignment="Bottom">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Horizontal"
+                    Spacing="40"/>    
+                </ItemsPanelTemplate>    
+            </ListBox.ItemsPanel>
+            <ListBox.Styles>
+                <Style Selector="ListBoxItem">
+                    <Setter Property="Template">
+                        <ControlTemplate>
+                            <TextBlock FontSize="36" Text="{TemplateBinding Content}"></TextBlock>    
+                        </ControlTemplate>
+                    </Setter>    
+                </Style>
+                <Style Selector="ListBoxItem /template/ TextBlock">
+                    <Setter Property="TextBlock.Foreground" Value="#20000000"></Setter>    
+                </Style>
+                <Style Selector="ListBoxItem:pointerover /template/ TextBlock">
+                    <Setter Property="TextBlock.Foreground" Value="#f6d3f2"></Setter>    
+                </Style>   
+                <Style Selector="ListBoxItem:selected /template/ TextBlock">
+                    <Setter Property="TextBlock.Foreground" Value="Purple"></Setter>    
+                </Style>    
+            </ListBox.Styles>
+        </ListBox>        
+    </Border>
+</UserControl>

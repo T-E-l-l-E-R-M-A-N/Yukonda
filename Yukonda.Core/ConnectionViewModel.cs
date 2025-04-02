@@ -12,6 +12,6 @@
         {
             new DbProvider() {Name = "SQLite"},
             new DbProvider() {Name = "PostgreSQL"},
-        }
+        };
     }
 }

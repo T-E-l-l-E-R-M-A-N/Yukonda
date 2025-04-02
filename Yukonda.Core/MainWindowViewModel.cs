@@ -2,22 +2,37 @@
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
+using System.Dynamic;
 using Dapper;
 using Microsoft.Data.Sqlite;
 using Npgsql;
 
 namespace Yukonda.Core
 {
-    public abstract class DbProvider
+    public class DbProvider
     {
         public string Name {get;set;}
     }
     public class MainWindowViewModel : BindableBase
     {
+        private string _currentTable;
+
+        public bool Connected {get;set;}
         public DbConnection Connection { get; set; }
         public ConnectionViewModel ConnectionView { get; set; }
-        public DataTable DataTable { get; set; }
         public ObservableCollection<string> Tables { get; set; } = new();
+        public ObservableCollection<string> Columns {get;set;}
+        public ObservableCollection<KeyValuePair<string,object>> Data {get;set;}
+        public string CurrentTable 
+        { 
+            get => _currentTable; 
+            set
+            {
+                _currentTable = value; 
+                SqlQuery = $"SELECT * FROM {_currentTable}";
+                ExecuteQueryCommand.Execute();
+            }
+        }
 
         public string SqlQuery { get; set; }
 
@@ -29,6 +44,18 @@ namespace Yukonda.Core
             ExecuteQueryCommand = new DelegateCommand(OnExecuteQuery);
 
             ConnectionView = new ConnectionViewModel();
+
+            if(System.IO.File.Exists("connection.db"))
+            {
+                Connection = new NpgsqlConnection(System.IO.File.ReadAllText("connection.db"));
+                if(Connection != null)
+                {
+                    Connected = true;
+                    ConnectionView.DbProvider = new DbProvider() {Name = "PostgreSQL"};
+                    LoadTablesCommand.Execute();
+                    CurrentTable = Tables[0];
+                }
+            }
         }
 
         private void OnExecuteQuery()
@@ -37,28 +64,19 @@ namespace Yukonda.Core
 
             try
             {
-                var result = Connection.Query(SqlQuery);
-                var table = new DataTable();
+                var result = Connection.Query(SqlQuery).ToList();
+                if (!result.Any()) return;
 
-                foreach (var row in result)
+                Data = new ObservableCollection<KeyValuePair<string,object>>();
+
+                foreach(var p in result)
                 {
-                    if (table.Columns.Count == 0)
+                    foreach (var kp in p)
                     {
-                        foreach (var column in ((IDictionary<string, object>)row).Keys)
-                        {
-                            table.Columns.Add(column);
-                        }
+                        Data.Add(kp);
                     }
-
-                    var newRow = table.NewRow();
-                    foreach (var column in ((IDictionary<string, object>)row).Keys)
-                    {
-                        newRow[column] = ((IDictionary<string, object>)row)[column];
-                    }
-                    table.Rows.Add(newRow);
                 }
-
-                DataTable = table;
+                
             }
             catch (Exception e)
             {
@@ -75,7 +93,7 @@ namespace Yukonda.Core
             switch (ConnectionView.DbProvider.Name)
             {
                 case "PostgreSQL":
-                    tables = Connection.Query<string>("SELECT table_name FROM information.schema.tables WHERE table_schema = \"public\";");
+                    tables = Connection.Query<string>("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';");
                     break;
                 case "SQLite":
                     tables = Connection.Query<string>("SELECT name FROM sqlite_master WHERE type = \"table\";");
@@ -103,9 +121,15 @@ namespace Yukonda.Core
                 switch (ConnectionView.DbProvider.Name)
                 {
                     case "PostgreSQL":
+                    
                         connectionString = $"Host={ConnectionView.Host};Port={ConnectionView.Port};Username={ConnectionView.Username};Password={ConnectionView.Password};Database={ConnectionView.Database}";
                         Connection = new NpgsqlConnection(connectionString);
-                        var result = Connection.Query("SELECT name FROM Customers WHERE id < 10;");
+                        if(Connection != null)
+                        {
+                            System.IO.File.WriteAllText("connection.db", connectionString);
+                            Connected = true;
+                        }
+                        var result = Connection.Query("SELECT * FROM Customers WHERE id < 10;");
                         Console.WriteLine(result);
                         break;
                     case "SQLite":
@@ -113,6 +137,8 @@ namespace Yukonda.Core
                         Connection = new SqliteConnection(connectionString);
                         break;
                 }
+
+                LoadTablesCommand.Execute();
 
                 
             }
@@ -122,5 +148,6 @@ namespace Yukonda.Core
             }
         }
     }
+
 
 }

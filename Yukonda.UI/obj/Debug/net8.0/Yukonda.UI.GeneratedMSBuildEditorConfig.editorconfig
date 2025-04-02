@@ -19,5 +19,8 @@ build_property.EnableGeneratedComInterfaceComImportInterop =
 [C:/Users/student/Desktop/Yukonda/Yukonda/Yukonda.UI/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/student/Desktop/Yukonda/Yukonda/Yukonda.UI/Controls/TableSelectControl.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/student/Desktop/Yukonda/Yukonda/Yukonda.UI/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
