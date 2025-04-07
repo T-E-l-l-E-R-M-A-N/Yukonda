@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Yukonda.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+573324d9877f18f1734b87a84f24b1520c884f0c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0615b4f9c2d2f79f0fa12a24f79d965a2197edfe")]
 [assembly: System.Reflection.AssemblyProductAttribute("Yukonda.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Yukonda.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

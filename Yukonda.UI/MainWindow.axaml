@@ -128,11 +128,10 @@ xmlns:local="using:Yukonda.UI">
             <TextBlock FontSize="48"
                         FontWeight="Light"
                         Margin="70,30,0,0"
-                        DockPanel.Dock="Top">Tables</TextBlock>
+                        DockPanel.Dock="Top">Таблицы</TextBlock>
             <local:TableSelectControl DockPanel.Dock="Top"/> 
                
-            <ListBox Items="{Binding Data}">
-            </ListBox>
+            <DataGrid ItemsSource="{Binding DataTable}"/>
         </DockPanel>
 
         <Border Classes="connectionView" DataContext="{Binding ConnectionView}"
@@ -147,7 +146,7 @@ xmlns:local="using:Yukonda.UI">
                            Foreground="White"/>    
                 </Border>
                 <ComboBox SelectedItem="{Binding DbProvider}"
-                          Items="{Binding Providers}">
+                          ItemsSource="{Binding Providers}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}"/>

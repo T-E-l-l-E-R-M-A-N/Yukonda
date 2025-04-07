@@ -3,7 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yukonda.Core", "Yukonda.Core\Yukonda.Core.csproj", "{0CAC02FB-BCF7-61C3-4707-CDB777599960}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yukonda.UI", "Yukonda.UI\Yukonda.UI.csproj", "{0CAC02FB-BCF7-61C3-4707-CDB777599960}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yukonda.UI", "Yukonda.UI\Yukonda.UI.csproj", "{B716D417-D295-4D0D-9409-4CF074F2C162}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yukonda.UI.Windows", "Yukonda.UI.Windows\Yukonda.UI.Windows.csproj", "{2E3C6B9F-B96C-4A5E-93C3-C41EC90E25DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +18,14 @@ Global
 		{0CAC02FB-BCF7-61C3-4707-CDB777599960}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CAC02FB-BCF7-61C3-4707-CDB777599960}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CAC02FB-BCF7-61C3-4707-CDB777599960}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B716D417-D295-4D0D-9409-4CF074F2C162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B716D417-D295-4D0D-9409-4CF074F2C162}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B716D417-D295-4D0D-9409-4CF074F2C162}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B716D417-D295-4D0D-9409-4CF074F2C162}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E3C6B9F-B96C-4A5E-93C3-C41EC90E25DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E3C6B9F-B96C-4A5E-93C3-C41EC90E25DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E3C6B9F-B96C-4A5E-93C3-C41EC90E25DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E3C6B9F-B96C-4A5E-93C3-C41EC90E25DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,7 +6,7 @@
     <Border MinWidth="640"
             Height="50"
             Background="#FFF">
-        <ListBox Items="{Binding Tables}"
+        <ListBox ItemsSource="{Binding Tables}"
                  SelectedItem="{Binding CurrentTable}"
                  Margin="70,0,0,0"
                  Background="Transparent"
@@ -14,15 +14,14 @@
                  VerticalAlignment="Bottom">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="Horizontal"
-                    Spacing="40"/>    
+                    <VirtualizingStackPanel Orientation="Horizontal"/>    
                 </ItemsPanelTemplate>    
             </ListBox.ItemsPanel>
             <ListBox.Styles>
                 <Style Selector="ListBoxItem">
                     <Setter Property="Template">
                         <ControlTemplate>
-                            <TextBlock FontSize="36" Text="{TemplateBinding Content}"></TextBlock>    
+                            <TextBlock FontSize="36" Margin="0,0,40,0" Text="{TemplateBinding Content}"></TextBlock>    
                         </ControlTemplate>
                     </Setter>    
                 </Style>
