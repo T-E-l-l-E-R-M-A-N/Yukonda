@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Data;
+using System.Data.Common;
 using Dapper;
 using Microsoft.Data.Sqlite;
 using Npgsql;
@@ -9,126 +10,60 @@ namespace Yukonda.Core.Models
 {
     public class ConnectionModel : BindableBase
     {
-        private readonly MainWindowViewModel _mainWindowViewModel;
+        private MainWindowViewModel _mainWindowViewModel = null!;
 
-        public IDbConnection Connection { get; set; }
-        public string ConnectionName { get; set; }
-        private string _currentTable;
+        public IDbConnection DbConnection { get; set; } = null!;
+        public bool Connected { get; set; } = false;
+        public ObservableCollection<SchemaModel> Schemas { get; set; } = new();
+        public DbProviderModel DbProvider { get; set; } = null!;
 
-        public bool Connected { get; set; }
-        public ObservableCollection<string> Tables { get; set; } = new();
-        public ObservableCollection<string> Columns { get; set; }
-        public DataTable DataTable { get; set; }
-        public string CurrentTable
+        private void LoadPublicTables()
         {
-            get => _currentTable;
-            set
-            {
-                _currentTable = value;
-                SqlQuery = $"SELECT * FROM {_currentTable}";
-                ExecuteQueryCommand.Execute();
-            }
-        }
+            if (DbConnection == null) return;
 
-        public string SqlQuery { get; set; }
-        public DbProviderModel DbProvider { get; set; }
-
-        public ConnectionModel(MainWindowViewModel mainWindowViewModel)
-        {
-            _mainWindowViewModel = mainWindowViewModel;
-
-            
-        }
-        public DelegateCommand DisconnectCommand { get; set; }
-        public DelegateCommand ExecuteQueryCommand { get; set; }
-        private void OnDisconnect()
-        {
-            Connection.Close();
-            _mainWindowViewModel.Disconnect(this);
-        }
-
-        private void OnExecuteQuery()
-        {
-            if (Connection == null) return;
-
-            try
-            {
-                var result = Connection.Query(SqlQuery);
-                var table = new DataTable();
-
-                foreach (var row in result)
-                {
-                    if (table.Columns.Count == 0)
-                    {
-                        foreach (var column in ((IDictionary<string, object>)row).Keys)
-                        {
-                            table.Columns.Add(column);
-                        }
-                    }
-
-                    var newRow = table.NewRow();
-                    foreach (var column in ((IDictionary<string, object>)row).Keys)
-                    {
-                        newRow[column] = ((IDictionary<string, object>)row)[column];
-                    }
-                    table.Rows.Add(newRow);
-                }
-
-                DataTable = table;
-            }
-            catch (Exception ex)
-            {
-                _mainWindowViewModel.RaiseError(ex);
-            }
-        }
-
-        private void OnLoadTables()
-        {
-            if (Connection == null) return;
-
-            Tables.Clear();
-            IEnumerable<string> tables = null!;
+            Schemas.Clear();
+            IEnumerable<dynamic> schemas = null!;
             switch (DbProvider.Name)
             {
                 case "PostgreSQL":
-                    tables = Connection.Query<string>("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';");
-                    break;
-                case "SQLite":
-                    tables = Connection.Query<string>("SELECT name FROM sqlite_master WHERE type = \"table\";");
+                    schemas = DbConnection.Query<dynamic>("SELECT n.nspname AS schema_name,\n       CASE WHEN has_schema_privilege(n.nspname, 'CREATE') THEN 'YES' ELSE 'NO' END AS can_create,\n       CASE WHEN has_schema_privilege(n.nspname, 'USAGE') THEN 'YES' ELSE 'NO' END AS can_use\nFROM pg_namespace n\nWHERE n.nspname NOT LIKE 'pg_%' AND n.nspname != 'information_schema';");
                     break;
             }
-            foreach (var table in tables)
+            foreach (var schema in schemas)
             {
-                Tables.Add(table);
+                var name = schema.schema_name;
+                var canUse = schema.can_use == "YES" ? true : false;
+                var canCreate = schema.can_create == "YES" ? true : false;
+                var isReadonly = !(canCreate & canUse);
+                var tables = DbConnection.Query<string>(
+                    $"SELECT table_name\nFROM information_schema.tables\nWHERE table_schema = '{name}'\n  AND table_type = 'BASE TABLE';");
+                var schemaModel = new SchemaModel()
+                {
+                    SchemaName = name,
+                    IsReadOnly = isReadonly,
+                    Tables = new ObservableCollection<string>(tables)
+                };
+                Schemas.Add(schemaModel);
             }
         }
 
-        public void Init(DbProviderModel provider, string[] credentials)
+        public void CloseConnection()
         {
-            DisconnectCommand = new DelegateCommand(OnDisconnect);
-            ExecuteQueryCommand = new DelegateCommand(OnExecuteQuery);
-            DbProvider = provider;
+            DbConnection?.Close();
+        }
+
+        public void Init(IDbConnection connection)
+        {
+            _mainWindowViewModel = IoC.Resolve<MainWindowViewModel>();
             try
             {
-                if (Connection != null) Connection.Close();
+                if (DbConnection != null) DbConnection.Close();
 
-                string connectionString = "";
+                DbConnection = connection;
 
-                switch (provider.Name.ToLower())
-                {
-                    case "postgresql":
-                        ConnectionName = credentials[4];
-                        connectionString = $"Host={credentials[0]};Port={credentials[1]};Username={credentials[2]};Password={credentials[3]};Database={credentials[4]}";
-                        Connection = new NpgsqlConnection(connectionString);
-                        break;
-                    case "sqLite":
-                        connectionString = $"Data Source={credentials[4]}.db";
-                        Connection = new SqliteConnection(connectionString);
-                        break;
-                }
-                ConnectionName = credentials[4].ToUpper();
+                Connected = true;
 
-                OnLoadTables();
+                LoadPublicTables();
 
 
             }

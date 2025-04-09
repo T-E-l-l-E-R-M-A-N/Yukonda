@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\student\Desktop\Yukonda\Yukonda.UI.Windows\obj\Debug\net8.0-windows\
+C:\Users\student\Desktop\repos\Yukonda.UI.Windows\obj\Debug\net8.0-windows\
 Yukonda.UI.Windows
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
-C:\Users\student\Desktop\Yukonda\Yukonda.UI.Windows\App.xaml
+C:\Users\student\Desktop\repos\Yukonda.UI.Windows\App.xaml
 2-2072656852
 
 7486220892
-219-332467842
+2191218335282
 Windows\CreateConnectionWindow.xaml;Windows\MainWindow.xaml;
 
-True
+False
 

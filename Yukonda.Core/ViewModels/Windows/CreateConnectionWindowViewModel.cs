@@ -24,8 +24,8 @@ namespace Yukonda.Core.ViewModels.Windows
         public DbProviderModel DbProvider { get; set; }
         public List<DbProviderModel> Providers { get; set; } = new List<DbProviderModel>()
         {
-            new DbProviderModel("PostgreSQL", @"C:\Users\student\Downloads\postgre_33r3vujbdeg1.svg"),
-            new DbProviderModel("SQLite", @"C:\Users\student\Downloads\SQLite.svg"),
+            new DbProviderModel("PostgreSQL", @"/Assets/svgs/postgresql-logo.svg"),
+            new DbProviderModel("SQLite", @"/Assets/svgs/sqlite-original-logo.svg"),
         };
         public CreateConnectionWindowViewModel()
         {

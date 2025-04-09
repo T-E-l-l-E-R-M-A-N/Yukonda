@@ -17,9 +17,62 @@
     <PackageReference Include="Avalonia.Desktop" Version="11.2.6" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.2.6" />
+    <PackageReference Include="Avalonia.Svg" Version="11.2.0.2" />
+    <PackageReference Include="Live.Avalonia" Version="1.4.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Yukonda.Core\Yukonda.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\svgs\ban.svg" />
+    <AvaloniaResource Include="Assets\svgs\ban.svg" />
+    <None Remove="Assets\svgs\clone.svg" />
+    <AvaloniaResource Include="Assets\svgs\clone.svg" />
+    <None Remove="Assets\svgs\code.svg" />
+    <AvaloniaResource Include="Assets\svgs\code.svg" />
+    <None Remove="Assets\svgs\database.svg" />
+    <AvaloniaResource Include="Assets\svgs\database.svg" />
+    <None Remove="Assets\svgs\gear.svg" />
+    <AvaloniaResource Include="Assets\svgs\gear.svg" />
+    <None Remove="Assets\svgs\lock.svg" />
+    <AvaloniaResource Include="Assets\svgs\lock.svg" />
+    <None Remove="Assets\svgs\lock-open.svg" />
+    <AvaloniaResource Include="Assets\svgs\lock-open.svg" />
+    <None Remove="Assets\svgs\play.svg" />
+    <AvaloniaResource Include="Assets\svgs\play.svg" />
+    <None Remove="Assets\svgs\plus.svg" />
+    <AvaloniaResource Include="Assets\svgs\plus.svg" />
+    <None Remove="Assets\svgs\rotate-right.svg" />
+    <AvaloniaResource Include="Assets\svgs\rotate-right.svg" />
+    <None Remove="Assets\svgs\server.svg" />
+    <AvaloniaResource Include="Assets\svgs\server.svg" />
+    <None Remove="Assets\svgs\square.svg" />
+    <AvaloniaResource Include="Assets\svgs\square.svg" />
+    <None Remove="Assets\svgs\table.svg" />
+    <AvaloniaResource Include="Assets\svgs\table.svg" />
+    <None Remove="Assets\svgs\user-large.svg" />
+    <AvaloniaResource Include="Assets\svgs\user-large.svg" />
+    <None Remove="Assets\svgs\window-maximize.svg" />
+    <AvaloniaResource Include="Assets\svgs\window-maximize.svg" />
+    <None Remove="Assets\svgs\window-minimize.svg" />
+    <AvaloniaResource Include="Assets\svgs\window-minimize.svg" />
+    <None Remove="Assets\svgs\window-restore.svg" />
+    <AvaloniaResource Include="Assets\svgs\window-restore.svg" />
+    <None Remove="Assets\svgs\xmark.svg" />
+    <AvaloniaResource Include="Assets\svgs\xmark.svg" />
+    <None Remove="Assets\svgs\postgresql-logo.svg" />
+    <AvaloniaResource Include="Assets\svgs\postgresql-logo.svg" />
+    <None Remove="Assets\svgs\sqlite-original-logo.svg" />
+    <AvaloniaResource Include="Assets\svgs\sqlite-original-logo.svg" />
+    <None Remove="Assets\svgs\eraser.svg" />
+    <AvaloniaResource Include="Assets\svgs\eraser.svg" />
+    <None Remove="Assets\svgs\trash-can.svg" />
+    <AvaloniaResource Include="Assets\svgs\trash-can.svg" />
   </ItemGroup>
 </Project>

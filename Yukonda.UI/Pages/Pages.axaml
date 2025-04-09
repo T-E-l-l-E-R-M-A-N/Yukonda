@@ -1,0 +1,529 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:valueConverters="clr-namespace:Yukonda.UI.ValueConverters"
+                    xmlns:controls="clr-namespace:Yukonda.UI.Controls">
+    <!-- Add Resources Here -->
+    <Design.PreviewWith>
+        <Border Padding="20" Background="#10000000" Width="640">
+            <ContentPresenter ContentTemplate="{DynamicResource ConnectionPage}"></ContentPresenter>
+        </Border>
+    </Design.PreviewWith>
+    <DataTemplate x:Key="ConnectionPage">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+            <ScrollViewer.Styles>
+                <Style Selector="ScrollBar:vertical">
+                    <Setter Property="Margin" Value="0,50,0,0" />
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+            </ScrollViewer.Styles>
+            <WrapPanel Orientation="Horizontal" Margin="10,50,10,0">
+                <WrapPanel.Styles>
+
+                    <Style Selector="Border.sectionBorder">
+                        <Setter Property="Margin" Value="20,0" />
+                    </Style>
+                </WrapPanel.Styles>
+                <Svg Path="{Binding ConnectionModel.DbProvider, Converter={valueConverters:ModelToIconConverter}}"
+                     Width="100"
+                     Height="100"
+                     HorizontalAlignment="Left">
+                </Svg>
+                <Border Classes="sectionBorder">
+                    <StackPanel Spacing="20">
+                        <TextBlock Text="{Binding ConnectionName}"
+                                   FontWeight="Bold"
+                                   FontSize="24" />
+                        <Border CornerRadius="6"
+                                HorizontalAlignment="Left"
+                                Background="#FFFFFF">
+                            <StackPanel>
+                                <Border Padding="5" BorderThickness="0,0,0,1"
+                                        BorderBrush="#10000000">
+                                    <StackPanel Orientation="Horizontal"
+                                                Spacing="5">
+                                        <TextBlock Text="Host:"
+                                                   Width="100"
+                                                   FontSize="12" />
+                                        <TextBlock Text="{Binding ConnectionParams[0]}"
+                                                   Foreground="#50000000"
+                                                   Width="100"
+                                                   TextAlignment="Right"
+                                                   FontSize="12" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Padding="5" BorderThickness="0,0,0,1"
+                                        BorderBrush="#10000000">
+                                    <StackPanel Orientation="Horizontal"
+                                                Spacing="5">
+                                        <TextBlock Text="Port:"
+                                                   Width="100"
+                                                   FontSize="12" />
+                                        <TextBlock Text="{Binding ConnectionParams[1]}"
+                                                   Foreground="#50000000"
+                                                   Width="100"
+                                                   TextAlignment="Right"
+                                                   FontSize="12" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Padding="5" BorderThickness="0,1,0,0">
+                                    <StackPanel Orientation="Horizontal"
+                                                Spacing="5">
+                                        <TextBlock Text="User:"
+                                                   Width="100"
+                                                   FontSize="12" />
+                                        <TextBlock Text="{Binding ConnectionParams[2]}"
+                                                   Foreground="#50000000"
+                                                   Width="100"
+                                                   TextAlignment="Right"
+                                                   FontSize="12" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+                <Border Classes="sectionBorder">
+                    <StackPanel Spacing="20">
+                        <TextBlock Text="Actions"
+                                   FontWeight="Bold"
+                                   FontSize="24" />
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="10">
+                            <Button Classes="actionButton"
+                                    ToolTip.Tip="Query Tool"
+                                    Tag="Query Tool"
+                                    Command="{Binding OpenQueryTabCommand}"
+                                    CommandParameter="{Binding }">
+                                <Svg Width="30"
+                                     Path="/Assets/svgs/code.svg">
+                                </Svg>
+                            </Button>
+                            <Button Classes="actionButton"
+                                    Tag="Disconnect"
+                                    Command="{Binding DisconnectCommand}"
+                                    ToolTip.Tip="Disconnect">
+                                <Svg Width="34"
+                                     Path="/Assets/svgs/ban.svg">
+                                </Svg>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+
+                </Border>
+                <Border Classes="sectionBorder">
+                    <StackPanel Spacing="20">
+                        <TextBlock Text="Schemas"
+                                   FontWeight="Bold"
+                                   FontSize="24" />
+                        <ItemsControl ItemsSource="{Binding ConnectionModel.Schemas}"
+                                      HorizontalAlignment="Left">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Height="30"
+                                            Margin="0,5"
+                                            Background="#FFFFFF"
+                                            Width="280"
+                                            BorderThickness="1"
+                                            BorderBrush="#10000000"
+                                            CornerRadius="6">
+                                        <DockPanel LastChildFill="True">
+                                            <Button Classes="toolBarButton"
+                                                    Height="26"
+                                                    DockPanel.Dock="Right"
+                                                    Command="{Binding $parent[ItemsControl].DataContext.OpenSchemaCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    ToolTip.Tip="Open schema">
+                                                <Svg Width="16"
+                                                     Height="16"
+                                                     Path="/Assets/svgs/clone.svg">
+                                                </Svg>
+                                            </Button>
+
+                                            <TextBlock Text="{Binding SchemaName}"
+
+                                                       VerticalAlignment="Center"
+                                                       Padding="10,5"
+                                                       TextAlignment="Left">
+                                            </TextBlock>
+                                        </DockPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+
+                </Border>
+
+            </WrapPanel>
+        </ScrollViewer>
+    </DataTemplate>
+    <DataTemplate x:Key="SchemaPage">
+        <DockPanel LastChildFill="True" Margin="0,50,0,0">
+            <DockPanel.Styles>
+                <Style Selector="DockPanel#sqlView">
+                    <Setter Property="RenderTransform" Value="translateY(200px)" />
+                    <Setter Property="Transitions">
+                        <Transitions>
+                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" />
+                        </Transitions>
+                    </Setter>
+                </Style>
+                <Style Selector="DockPanel#sqlView[IsVisible=True]">
+                    <Setter Property="RenderTransform" Value="translateY(0px)" />
+                </Style>
+            </DockPanel.Styles>
+            <DockPanel LastChildFill="True">
+                <Border Height="50"
+                        DockPanel.Dock="Top">
+                    <TextBlock VerticalAlignment="Bottom"
+                               FontSize="30"
+                               FontWeight="Bold"
+                               Margin="20,0">
+                        Tables
+                    </TextBlock>
+                </Border>
+                <ListBox ItemsSource="{Binding SchemaModel.Tables}"
+                         BorderThickness="0"
+                         Width="220"
+                         Padding="0"
+                         SelectedItem="{Binding CurrentTable}">
+                    <ListBox.Styles>
+                        <Style Selector="ListBoxItem">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Foreground" Value="#000000" />
+                            <Setter Property="Svg.Css" Value="path {fill: #fff}" />
+                            <Setter Property="Template">
+                                <ControlTemplate>
+                                    <ContentPresenter Background="{TemplateBinding Background}"
+                                                      Height="30" VerticalContentAlignment="Center"
+                                                      CornerRadius="6"
+                                                      Margin="5"
+                                                      Padding="5,0">
+                                        <ContentPresenter.Content>
+                                            <DockPanel LastChildFill="True">
+                                                <Svg Width="16"
+                                                     Height="16"
+                                                     VerticalAlignment="Center"
+                                                     Path="/Assets/svgs/table.svg" />
+                                                <TextBlock Text="{Binding}"
+                                                           FontSize="12"
+                                                           VerticalAlignment="Center"
+                                                           Margin="10,0" />
+                                            </DockPanel>
+                                        </ContentPresenter.Content>
+                                    </ContentPresenter>
+                                </ControlTemplate>
+                            </Setter>
+                        </Style>
+                        <Style Selector="ListBoxItem /template/ ContentPresenter">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Foreground" Value="#000000" />
+                            <Setter Property="Svg.Css" Value="path {fill: #000}" />
+                        </Style>
+                        <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background">
+                                <LinearGradientBrush StartPoint="0% 0%"
+                                                     EndPoint="0% 100%">
+                                    <GradientStop Offset="0.0" Color="#C63D8FB2" />
+                                </LinearGradientBrush>
+                            </Setter>
+                            <Setter Property="Foreground" Value="#FFFFFF" />
+                        </Style>
+                        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                            <Setter Property="Svg.Css" Value="path {fill: #FFF}" />
+                            <Setter Property="Background">
+                                <LinearGradientBrush StartPoint="0% 0%"
+                                                     EndPoint="0% 100%">
+                                    <GradientStop Offset="0.0" Color="#C603326F" />
+                                </LinearGradientBrush>
+                            </Setter>
+                            <Setter Property="Foreground" Value="#FFFFFF" />
+                        </Style>
+                        <Style Selector="ListBoxItem">
+                            <Setter Property="Foreground" Value="#FFFFFF" />
+                        </Style>
+                    </ListBox.Styles>
+                </ListBox>
+            </DockPanel>
+
+            <DockPanel LastChildFill="True"
+                       Name="sqlView"
+                       Height="200"
+                       DockPanel.Dock="Bottom">
+                <Border Background="Transparent" Height="50"
+
+                        DockPanel.Dock="Top">
+                    <TextBlock VerticalAlignment="Center"
+                               FontSize="30"
+                               FontWeight="Bold"
+                               Margin="20,0">
+                        SQL query of data
+                    </TextBlock>
+                </Border>
+                <ScrollViewer>
+                    <TextBox Text="{Binding SqlQuery}"
+                             CornerRadius="0,0,8,8"
+                             Padding="20"
+                             Foreground="Chocolate"
+                             IsReadOnly="True"
+                             BorderThickness="0"
+                             Background="#FFFFFF" />
+                </ScrollViewer>
+            </DockPanel>
+            <DockPanel LastChildFill="True"
+                       Height="190"
+                       IsVisible="{Binding !!Data.Count}"
+                       DockPanel.Dock="Bottom">
+                <Border Height="50"
+                        DockPanel.Dock="Top">
+                    <TextBlock VerticalAlignment="Bottom"
+                               FontSize="30"
+                               FontWeight="Bold"
+                               Margin="20,0">
+                        Actions with table
+                    </TextBlock>
+                </Border>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="10">
+                    <StackPanel.Styles>
+                        <Style Selector="Button.actionButton">
+                            <Setter Property="Height" Value="50" />
+                        </Style>
+                        <Style Selector="Button.actionButton /template/ Border">
+                            <Setter Property="Width" Value="32" />
+                        </Style>
+                        <Style Selector="ToggleButton.actionButton">
+                            <Setter Property="Height" Value="50" />
+                        </Style>
+                        <Style Selector="ToggleButton.actionButton /template/ Border">
+                            <Setter Property="Width" Value="32" />
+                        </Style>
+                    </StackPanel.Styles>
+                    <Button Classes="actionButton"
+                            ToolTip.Tip="Add row"
+                            Tag="Insert row"
+                            Command="{Binding AddRowCommand}">
+                        <Svg Width="20"
+                             Css="path {fill: dodgerBLue}"
+                             Path="/Assets/svgs/plus.svg">
+                        </Svg>
+                    </Button>
+                    <Button Classes="actionButton"
+                            ToolTip.Tip="Insert column"
+                            Tag="Insert column"
+                            Command="{Binding AddColumnCommand}">
+                        <Svg Width="20"
+                             Css="path {fill: dodgerBLue}"
+                             Path="/Assets/svgs/plus.svg">
+                        </Svg>
+                    </Button>
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="10">
+                        <Button Classes="actionButton"
+                                ToolTip.Tip="Remove selected row"
+                                Tag="Remove selected row"
+                                IsEnabled="{Binding SelectedDataTableRowModel, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                Command="{Binding DeleteSelectedRowCommand}">
+                            <Svg Width="20"
+                                 Css="path {fill: dodgerBLue}"
+                                 Path="/Assets/svgs/xmark.svg">
+                            </Svg>
+                        </Button>
+                        <Button Classes="actionButton"
+                                ToolTip.Tip="Remove selected column"
+                                Tag="Remove selected column"
+                                IsEnabled="{Binding SelectedDataTableColumnModel, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                Command="{Binding DeleteSelectedColumnCommand}">
+                            <Svg Width="20"
+                                 Css="path {fill: dodgerBLue}"
+                                 Path="/Assets/svgs/xmark.svg">
+                            </Svg>
+                        </Button>
+                        <Button Classes="actionButton"
+                                ToolTip.Tip="Clear table"
+                                Tag="Clear table"
+                                IsEnabled="{Binding CurrentTable, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Command="{Binding ClearTableCommand}">
+                            <Svg Width="20"
+                                 Css="path {fill: dodgerBLue}"
+                                 Path="/Assets/svgs/eraser.svg">
+                            </Svg>
+                        </Button>
+                        <Button Classes="actionButton"
+                                ToolTip.Tip="Delete table"
+                                Tag="Delete table"
+                                IsEnabled="{Binding CurrentTable, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Command="{Binding DeleteTableCommand}">
+                            <Svg Width="20"
+                                 Css="path {fill: dodgerBLue}"
+                                 Path="/Assets/svgs/trash-can.svg">
+                            </Svg>
+                        </Button>
+                    </StackPanel>
+                    <ToggleButton Classes="actionButton"
+                                  ToolTip.Tip="Toggle SQL Viewn"
+                                  IsChecked="{Binding #sqlView.IsVisible, Mode=TwoWay}"
+                                  Tag="SQL View">
+                        <Svg Width="20"
+                             Css="path {fill: dodgerBLue}"
+                             Path="/Assets/svgs/code.svg">
+                        </Svg>
+                    </ToggleButton>
+                </StackPanel>
+            </DockPanel>
+            <DockPanel LastChildFill="True">
+                <Border Height="50"
+                        DockPanel.Dock="Top">
+                    <TextBlock VerticalAlignment="Bottom"
+                               FontSize="30"
+                               FontWeight="Bold"
+                               Margin="20,5">
+                        Data view
+                    </TextBlock>
+                </Border>
+                <ScrollViewer>
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding Data}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel Orientation="Horizontal">
+
+                                    </VirtualizingStackPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel MinWidth="120">
+                                        <Button
+                                            Command="{Binding $parent[ScrollViewer].DataContext.SelectColumnCommand}"
+                                            CommandParameter="{Binding }">
+                                            <Button.Styles>
+                                                <Style Selector="Button">
+                                                    <Setter Property="Background" Value="#30000000" />
+                                                    <Setter Property="Foreground" Value="#FFFFFF" />
+                                                </Style>
+                                                <Style Selector="Button.isSelected">
+                                                    <Setter Property="Background" Value="DarkBlue" />
+                                                    <Setter Property="Foreground" Value="#FFFFFF" />
+                                                </Style>
+                                            </Button.Styles>
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <Border Background="{TemplateBinding Background}"
+                                                            Padding="5"
+
+                                                            BorderBrush="#20000000"
+                                                            BorderThickness="1">
+                                                        <StackPanel>
+                                                            <TextBlock Text="{Binding Header}"
+                                                                       TextAlignment="Center"
+                                                                       Foreground="{TemplateBinding Foreground}" />
+                                                            <TextBlock Text="{Binding DataType}"
+                                                                       TextAlignment="Center"
+                                                                       Foreground="Goldenrod" />
+                                                        </StackPanel>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                        <ItemsControl ItemsSource="{Binding Items}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        Command="{Binding $parent[ScrollViewer].DataContext.SelectRowCommand}"
+                                                        CommandParameter="{Binding }"
+                                                        Classes.isSelected="{Binding IsSelected}">
+                                                        <Button.Styles>
+                                                            <Style Selector="Button">
+                                                                <Setter Property="Background" Value="#FFFFFF" />
+                                                                <Setter Property="Foreground" Value="Blue" />
+                                                            </Style>
+                                                            <Style Selector="Button.isSelected">
+                                                                <Setter Property="Background" Value="DodgerBlue" />
+                                                                <Setter Property="Foreground" Value="#FFFFFF" />
+                                                            </Style>
+                                                        </Button.Styles>
+                                                        <Button.Template>
+                                                            <ControlTemplate>
+                                                                <Border Background="{TemplateBinding Background}"
+                                                                        Padding="5"
+
+                                                                        BorderBrush="#20000000"
+                                                                        BorderThickness="1">
+                                                                    <TextBlock Text="{Binding Value}"
+                                                                               Foreground="{TemplateBinding Foreground}" />
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Border Background="Goldenrod" Width="{Binding $parent[ScrollViewer].Bounds.Width}"
+                                Height="30"
+                                IsVisible="{Binding InsertItemPopupViewModel.IsShown}">
+                            <StackPanel Orientation="Horizontal" DataContext="{Binding InsertItemPopupViewModel}">
+                                <StackPanel.Styles>
+                                    <Style Selector="Button">
+            
+                                        <Setter Property="Width" Value="120"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border CornerRadius="6"
+                                                            Height="24"
+                                                            Background="{TemplateBinding Background}">
+                                                        <TextBlock Text="{TemplateBinding Content}"
+                                                                   TextAlignment="Center"
+                                                                   VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                    <Style Selector="Button[Tag=highlighted]">
+                                        <Setter Property="Background" Value="DodgerBlue"/>
+                                        <Setter Property="Foreground" Value="#FFFFFF"/>
+                                    </Style>
+                                    <Style Selector="Button[IsDefault=true]">
+                                        <Setter Property="Background" Value="DodgerBlue"/>
+                                        <Setter Property="Foreground" Value="#FFFFFF"/>
+                                    </Style>
+                                    <Style Selector="Button:pointerpressed">
+                                        <Setter Property="Background" Value="CornflowerBlue"/>
+                                        <Setter Property="Foreground" Value="#FFFFFF"/>
+                                    </Style>
+                                </StackPanel.Styles>
+                                <ItemsControl ItemsSource="{Binding Cells}" IsVisible="{Binding InsertType, Converter={valueConverters:IsEqualConverter}, ConverterParameter=Row}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <VirtualizingStackPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBox BorderThickness="1" BorderBrush="Blue" Background="#FFFFFF" Width="120" Text="{Binding Value}"></TextBox>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <StackPanel Orientation="Horizontal"
+                                            Spacing="10">
+                                    <Button Command="{Binding InsertCommand}" Tag="highlighted">Insert</Button>
+                                    <Button Command="{Binding CancelInsertingCommand}" >Cancel</Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        <Border>
+                            <TextBlock Text="{Binding $parent[Window].DataContext.ErrorLog}"
+                                       Foreground="Red"/>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </DockPanel>
+        </DockPanel>
+    </DataTemplate>
+</ResourceDictionary>

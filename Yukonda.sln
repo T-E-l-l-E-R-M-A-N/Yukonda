@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yukonda.UI", "Yukonda.UI\Yu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yukonda.UI.Windows", "Yukonda.UI.Windows\Yukonda.UI.Windows.csproj", "{2E3C6B9F-B96C-4A5E-93C3-C41EC90E25DC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4419A75E-2471-4A59-81E3-703809A15C6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,5 +34,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DBFA4448-FF51-4995-B10C-5C1D8F281932}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0CAC02FB-BCF7-61C3-4707-CDB777599960} = {4419A75E-2471-4A59-81E3-703809A15C6F}
 	EndGlobalSection
 EndGlobal

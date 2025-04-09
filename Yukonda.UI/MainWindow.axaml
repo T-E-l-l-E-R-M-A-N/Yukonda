@@ -6,163 +6,393 @@ mc:Ignorable="d"
 d:DesignWidth="800" 
 d:DesignHeight="450" 
 x:Class="Yukonda.UI.MainWindow" 
+		MinWidth="555"
 Title="Yukonda.UI"
-xmlns:local="using:Yukonda.UI">
-    <Window.Styles>
-        <Style Selector="TextBox">
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <Grid RowDefinitions="Auto *">
-                        <TextBlock Text="{TemplateBinding Watermark}"></TextBlock>
-                        <Border Grid.Row="1"
-              Background="{TemplateBinding Background}"
-              BorderBrush="{TemplateBinding BorderBrush}"
-              BorderThickness="{TemplateBinding BorderThickness}"
-              CornerRadius="{TemplateBinding CornerRadius}"
-              MinWidth="{TemplateBinding MinWidth}"
-              MinHeight="{TemplateBinding MinHeight}">
-              <TextPresenter Name="PART_TextPresenter"
-                                    Text="{TemplateBinding Text, Mode=TwoWay}"
-                                    CaretIndex="{TemplateBinding CaretIndex}"
-                                    SelectionStart="{TemplateBinding SelectionStart}"
-                                    SelectionEnd="{TemplateBinding SelectionEnd}"
-                                    TextAlignment="{TemplateBinding TextAlignment}"
-                                    TextWrapping="{TemplateBinding TextWrapping}"
-                                    PasswordChar="{TemplateBinding PasswordChar}"
-                                    RevealPassword="{TemplateBinding RevealPassword}"
-                                    SelectionBrush="{TemplateBinding SelectionBrush}"
-                                    SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
-                                    CaretBrush="{TemplateBinding CaretBrush}"
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-            </Border>    
-                    </Grid>
+		xmlns:selectors="using:Yukonda.UI.Selectors"
+xmlns:local="using:Yukonda.UI"
+xmlns:valueConverters="clr-namespace:Yukonda.UI.ValueConverters">
+	<Window.Styles>
+		<Style Selector="Button.toolBarButton">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="Width" Value="30"/>
+			<Setter Property="Height" Value="30"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Border CornerRadius="4"
+                                Background="{TemplateBinding Background}">
+							<ContentPresenter Content="{TemplateBinding Content}"/>
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style Selector="Button.toolBarButton:pointerover">
+			<Setter Property="Background" Value="#20000000"/>
+		</Style>
+		<Style Selector="ToggleButton.appMenuExpanderTb">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="Width" Value="30"/>
+			<Setter Property="Height" Value="30"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="ToggleButton">
+						<ContentPresenter CornerRadius="4"
+                                Background="{TemplateBinding Background}"/>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style Selector="ToggleButton.appMenuExpanderTb:pointerover">
+			<Setter Property="Background" Value="#20000000"/>
+		</Style>
+		<Style Selector="ToggleButton.appMenuExpanderTb:checked">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="BorderThickness" Value="0"/>
+		</Style>
+		
+		<Style Selector="Button.actionButton">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="BorderBrush" Value="#20000000"/>
+			<Setter Property="MinWidth" Value="100"/>
+			<Setter Property="Height" Value="70"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<DockPanel LastChildFill="True">
+							<TextBlock Text="{TemplateBinding Tag}"
+							           DockPanel.Dock="Bottom"
+							           TextAlignment="Center"
+							           Margin="0,2"/>
+							<Border CornerRadius="10"
+							        BorderBrush="{TemplateBinding BorderBrush}"
+							        BorderThickness="1"
+							        Background="{TemplateBinding Background}">
+								<ContentPresenter Content="{TemplateBinding Content}"/>
+							</Border>
+						</DockPanel>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style Selector="Button.actionButton:pointerover">
+			<Setter Property="Background" Value="#20000000"/>
+		</Style>
+		
+		<Style Selector="ToggleButton.actionButton">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="BorderBrush" Value="#20000000"/>
+			<Setter Property="Width" Value="100"/>
+			<Setter Property="Height" Value="70"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="ToggleButton">
+						<DockPanel LastChildFill="True">
+							<TextBlock Text="{TemplateBinding Tag}"
+							           DockPanel.Dock="Bottom"
+							           TextAlignment="Center"
+							           FontSize="11"
+							           Margin="0,2"/>
+							<Border CornerRadius="10"
+							        BorderBrush="{TemplateBinding BorderBrush}"
+							        BorderThickness="1"
+							        Background="{TemplateBinding Background}">
+								<ContentPresenter Content="{TemplateBinding Content}"/>
+							</Border>
+						</DockPanel>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style Selector="ToggleButton.actionButton:pointerover">
+			<Setter Property="Background" Value="#20000000"/>
+		</Style>
+		<Style Selector="ToggleButton.actionButton:checked">
+			<Setter Property="Background" Value="#20000000"/>
+		</Style>
+	</Window.Styles>
+	<DockPanel LastChildFill="True">
+		 <Border BorderThickness="0,0,1,0"
+		         DockPanel.Dock="Left"
+		         Width="220">
+			 <StackPanel
+                    Margin="0,0,0,0"
+                    
+                    >
+			 <Button Classes="toolBarButton"
+			         Margin="10"
+			         BorderBrush="#20000000"
+			         HorizontalAlignment="Right"
+			         Command="{Binding CreateNewConnectionCommand}"
+			         ToolTip.Tip="Connect to">
+				 <Svg Width="12" Css="path {fill: dodgerBlue;}"
+				      Height="12"
+				      Path="/Assets/svgs/plus.svg"></Svg>
+			 </Button>
+			 <TextBlock FontSize="30"
+			            FontWeight="Bold"
+			            Text="Servers"
+			            Margin="10,10,10,0"/>
+            <ListBox ItemsSource="{Binding Connections}"
+                     SelectedItem="{Binding Connection}"
+                     Background="Transparent"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     BorderThickness="0">
+                <ListBox.Styles>
+                    <Style Selector="ListBoxItem">
+	                    <Setter Property="Foreground" Value="Purple"/>
+	                    <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate >
+	                                <ContentPresenter Content="{TemplateBinding Content}"
+	                                                  Background="{TemplateBinding Background}"
+	                                                  CornerRadius="6"
+	                                                  Height="30"
+	                                                  Foreground="{TemplateBinding Foreground}"
+	                                                  ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+				    <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                       <Setter Property="Background" Value="Purple"/>
+                       <Setter Property="TextBlock.Foreground" Value="#FFFFFF"/>
+                    </Style>
+                    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+						<Setter Property="Background" Value="#20000000"/>
+                    </Style>
+	                <Style Selector="ListBoxItem:selected:pointerover /template/ ContentPresenter">
+		                <Setter Property="Background" Value="Plum"/>
+		                <Setter Property="TextBlock.Foreground" Value="#000000"/>
+	                </Style>
+                </ListBox.Styles>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="10,0">
+                            <Svg Width="18"
+Height="18"
+Path="{Binding ConnectionModel.DbProvider, Converter={valueConverters:ModelToIconConverter}}"/>
+                            <TextBlock Text="{Binding ConnectionName}"
+               VerticalAlignment="Center"
+               Margin="5,0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+		 </Border>
+		<Grid>
+			
+			<ScrollViewer HorizontalScrollBarVisibility="Disabled"
+			              VerticalScrollBarVisibility="Disabled"
+						  Classes="ContentViewScroll">
+				<ContentControl Content="{Binding CurrentTab.Page}"
+							Background="#FFFFFF" >
+					<ContentControl.ContentTemplate>
+						<selectors:PageTemplateSelector/>
+					</ContentControl.ContentTemplate>
+				</ContentControl>
+			</ScrollViewer>
+			<Border CornerRadius="6"
+                    Width="320"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    BorderThickness="1"
+                    BorderBrush="#20000000"
+                    Margin="8"
+                    Background="#FFFFFF"
+                    Height="36">
+				<DockPanel LastChildFill="True"
+                           Margin="2">
+					<Button Classes="toolBarButton"
+					        
+                            Command="{Binding OpenTabsBrowserCommand}"
+                            ToolTip.Tip="Open tabs browser">
+						<Svg Width="12" Css="path {fill: dodgerBlue;}"
+                                         Height="12"
+                                         Path="/Assets/svgs/clone.svg"></Svg>
+					</Button>
+					<Grid></Grid>
+				</DockPanel>
+			</Border>
+			<ListBox VerticalAlignment="Top"
+			         Margin="0,0,340,0"
+			         Padding="0"
+			         Background="Transparent"
+			         BorderThickness="0"
+			         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+			         ScrollViewer.VerticalScrollBarVisibility="Disabled"
+			         ItemsSource="{Binding Tabs}"
+			         
+			         SelectedItem="{Binding CurrentTab}">
+				<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<UniformGrid Rows="1"/>
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+				<ListBox.Styles>
+					<Style Selector="ListBoxItem">
+						<Setter Property="Opacity" Value="0.7"/>
+						<Setter Property="ToolTip.Tip" Value="{Binding Name}"/>
+						<Setter Property="Template">
+							<ControlTemplate>
+								<Border CornerRadius="6"
+								        BorderThickness="1"
+								        BorderBrush="{TemplateBinding BorderBrush}"
+								        Margin="8"
+								        Background="{TemplateBinding Background}"
+								        Height="36">
+									<DockPanel LastChildFill="True"
+									           Margin="2">
+										<Button Classes="toolBarButton"
+										        DockPanel.Dock="Right"
+										        Command="{Binding $parent[Window].DataContext.CloseCommand}"
+										        CommandParameter="{Binding}"
+										        ToolTip.Tip="Закрыть">
+											<Svg Width="12"
+											     Height="12"
+											     Path="/Assets/svgs/xmark.svg"></Svg>
+										</Button>
+										<TextBlock VerticalAlignment="Center"
+										           TextTrimming="CharacterEllipsis"
+										           Margin="10,0"
+										           Text="{Binding Name}"/>
+										<Grid></Grid>
+									</DockPanel>
+								</Border>
+							</ControlTemplate>
+						</Setter>
+					</Style>
+					<Style Selector="ListBoxItem /template/ Button.toolBarButton">
+						<Setter Property="Opacity" Value="0"/>
+					</Style>
+					<Style Selector="ListBoxItem:pointerover">
+						<Setter Property="BorderBrush" Value="#20000000"/>
+					</Style>
+					<Style Selector="ListBoxItem:pointerover /template/ Button.toolBarButton">
+						<Setter Property="Opacity" Value="1"/>
+					</Style>
+					<Style Selector="ListBoxItem:selected">
+						<Setter Property="Opacity" Value="1"/>
+						<Setter Property="Background" Value="#FFFFFF"/>
+						<Setter Property="BorderBrush" Value="#20000000"/>
+					</Style>
+					<Style Selector="ListBoxItem:selected /template/ Button.toolBarButton">
+						<Setter Property="Opacity" Value="1"/>
+					</Style>
+				</ListBox.Styles>
+			</ListBox>
+			<Border CornerRadius="8"
+                    DataContext="{Binding CreateConnectionWindowViewModel}"
+                    IsVisible="{Binding IsShown}"
+                    HorizontalAlignment="Right"
+                    Margin="8"
+        Background="#FFFFFF"
+        BorderBrush="#40000000"
+        BorderThickness="1"
+                    VerticalAlignment="Top"
+                    Width="320"
+        Padding="20">
+				<Border.Styles>
+					<Style Selector="ComboBox">
+						<Setter Property="CornerRadius" Value="6"/>
+						<Setter Property="Background" Value="#20000000"/>
+						<Setter Property="BorderThickness" Value="0"/>
+					</Style>
+					<Style Selector="TextBox">
+						<Setter Property="CornerRadius" Value="6"/>
+						<Setter Property="Background" Value="#20000000"/>
+						<Setter Property="BorderThickness" Value="0"/>
+					</Style>
+					<Style Selector="TextBox:focus">
+						<Setter Property="CornerRadius" Value="6"/>
+						<Setter Property="Background" Value="DodgerBlue"/>
+						<Setter Property="Foreground" Value="#FFFFFF"/>
+						<Setter Property="BorderThickness" Value="0"/>
+					</Style>
+					<Style Selector="Button">
+						<Setter Property="Background" Value="#20000000"/>
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="Button">
+									<Border CornerRadius="6"
+                        Height="24"
+                        Background="{TemplateBinding Background}">
+										<TextBlock Text="{TemplateBinding Content}"
+                               TextAlignment="Center"
+                               VerticalAlignment="Center"/>
+									</Border>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+					<Style Selector="Button[IsDefault=true]">
+						<Setter Property="Background" Value="DodgerBlue"/>
+						<Setter Property="Foreground" Value="#FFFFFF"/>
+					</Style>
+					<Style Selector="Button:pointerpressed">
+						<Setter Property="Background" Value="CornflowerBlue"/>
+						<Setter Property="Foreground" Value="#FFFFFF"/>
+					</Style>
+				</Border.Styles>
+				<StackPanel Orientation="Vertical"
+                HorizontalAlignment="Center"
+                >
+					<TextBlock TextAlignment="Center"
+Margin="0,-8,0,20"
+Text="Connect to server"
+FontWeight="Bold"/>
+					<Image Source="{DynamicResource appIconDrawingImage}"
+               Width="52"/>
 
-            
-                </ControlTemplate>    
-            </Setter>    
-        </Style>
+					<TextBlock Text="Тип подключения:"/>
+					<DockPanel LastChildFill="True">
+						<Svg Width="32"
+                             Height="32"
+                   Path="{Binding DbProvider.Icon}"/>
 
-        <Style Selector="Border.connectionView">
-            <Setter Property="Background" Value="#FFFFFF"></Setter>
-            <Setter Property="BorderThickness" Value="1 0 0 0"/>
-            <Setter Property="BorderBrush" Value="LightGray"></Setter>
-            <Setter Property="CornerRadius" Value="0"></Setter>
-        </Style>
-
-        <Style  Selector="Border.connectionView TextBox">
-            <Setter Property="Background" Value="#FFFFFF"></Setter>
-            <Setter Property="CornerRadius" Value="0"></Setter>
-            <Setter Property="MinHeight" Value="2"></Setter>
-            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-            <Setter Property="FontSize" Value="10"></Setter>
-            <Setter Property="Height" Value="29"></Setter>
-            <Setter Property="BorderThickness" Value="2"></Setter>
-            <Setter Property="BorderBrush" Value="#000000"></Setter>
-        </Style>
-        <Style  Selector="Border.connectionView ComboBox">
-            <Setter Property="Background" Value="#FFFFFF"></Setter>
-            <Setter Property="CornerRadius" Value="0"></Setter>
-            <Setter Property="Height" Value="24"></Setter>
-            <Setter Property="MinHeight" Value="2"></Setter>
-            <Setter Property="Width" Value="200"></Setter>
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-            <Setter Property="FontSize" Value="10"></Setter>
-            <Setter Property="BorderThickness" Value="0"></Setter>
-        </Style>
-
-        <Style  Selector="Border.connectionView TextBox:focus">
-            <Setter Property="BorderThickness" Value="2"></Setter>
-            <Setter Property="Foreground" Value="#000000"></Setter>
-            
-        </Style>
-
-        <Style Selector="Border.connectionView Button">
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-            <Setter Property="Background" Value="Transparent"></Setter>
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <Border Background="{TemplateBinding Background}">
-                        <ContentPresenter Content="{TemplateBinding Content}"/>    
-                    </Border>    
-                </ControlTemplate>    
-            </Setter>
-            <Setter Property="Content">
-                <Template>
-                    <Image Width="36">
-                        <DrawingImage>
-  <DrawingImage.Drawing>
-    <DrawingGroup ClipGeometry="M0,0 V8.4666669 H8.4666665 V0 H0 Z">
-      <DrawingGroup Opacity="1">
-        <GeometryDrawing Brush="Black" Geometry="F1 M8.4666665,8.4666669z M0,0z M4.2343663,0.52942504C2.1917444,0.52942504 0.529167349999999,2.1894207 0.529166249999999,4.2320416 0.529166249999999,6.2746636 2.1917444,7.9372417 4.2343663,7.9372417 6.2769859,7.9372417 7.9375004,6.2746625 7.9375004,4.2320416 7.9375004,2.1894207 6.2769886,0.52942504 4.2343663,0.52942504z M4.2343663,1.0585917C5.9910031,1.0585917 7.4078151,2.4754035 7.4078151,4.2320416 7.4078151,5.9886797 5.9910031,7.4080751 4.2343663,7.4080751 2.4777275,7.4080751 1.0583329,5.9886805 1.0583329,4.2320416 1.0583329,2.4754035 2.4777275,1.0585917 4.2343663,1.0585917z M4.5485591,2.5768456L4.1713212,2.9483989 5.1722936,3.9674583 2.2055495,3.9674583 2.2055495,4.4966249 5.1722936,4.4966249 4.1713212,5.5162008 4.5485591,5.8877544 6.1737826,4.2320416z" />
-      </DrawingGroup>
-    </DrawingGroup>
-  </DrawingImage.Drawing>
-</DrawingImage>    
-                    </Image> 
-                </Template>    
-            </Setter>
-        </Style>
-        <Style Selector="Border.connectionView Button:pointerover">
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-            <Setter Property="Background" Value="Transparent"></Setter>
-            <Setter Property="Content">
-                <Template>
-                    <Image Width="36">
-                        <DrawingImage>
-  <DrawingImage.Drawing>
-    <DrawingGroup ClipGeometry="M0,0 V8.4666669 H8.4666665 V0 H0 Z">
-      <DrawingGroup Opacity="1">
-        <GeometryDrawing Brush="Blue" Geometry="F1 M8.4666665,8.4666669z M0,0z M4.2343663,0.52942504C2.1917444,0.52942504 0.529167349999999,2.1894207 0.529166249999999,4.2320416 0.529166249999999,6.2746636 2.1917444,7.9372417 4.2343663,7.9372417 6.2769859,7.9372417 7.9375004,6.2746625 7.9375004,4.2320416 7.9375004,2.1894207 6.2769886,0.52942504 4.2343663,0.52942504z M4.2343663,1.0585917C5.9910031,1.0585917 7.4078151,2.4754035 7.4078151,4.2320416 7.4078151,5.9886797 5.9910031,7.4080751 4.2343663,7.4080751 2.4777275,7.4080751 1.0583329,5.9886805 1.0583329,4.2320416 1.0583329,2.4754035 2.4777275,1.0585917 4.2343663,1.0585917z M4.5485591,2.5768456L4.1713212,2.9483989 5.1722936,3.9674583 2.2055495,3.9674583 2.2055495,4.4966249 5.1722936,4.4966249 4.1713212,5.5162008 4.5485591,5.8877544 6.1737826,4.2320416z" />
-      </DrawingGroup>
-    </DrawingGroup>
-  </DrawingImage.Drawing>
-</DrawingImage>    
-                    </Image> 
-                </Template>    
-            </Setter>
-        </Style>
-    </Window.Styles>
-    <Grid>
-        <DockPanel LastChildFill="True">
-            <TextBlock FontSize="48"
-                        FontWeight="Light"
-                        Margin="70,30,0,0"
-                        DockPanel.Dock="Top">Таблицы</TextBlock>
-            <local:TableSelectControl DockPanel.Dock="Top"/> 
-               
-            <DataGrid ItemsSource="{Binding DataTable}"/>
-        </DockPanel>
-
-        <Border Classes="connectionView" DataContext="{Binding ConnectionView}"
-                IsVisible="{Binding !$parent[Window].DataContext.Connected}"
-                VerticalAlignment="Stretch"
-                HorizontalAlignment="Right"
-                Width="300">
-            <StackPanel Spacing="5">
-                <Border Background="Purple" Height="52">
-                    <TextBlock Text="подключение к базе данных"
-                           TextAlignment="Center"
-                           Foreground="White"/>    
-                </Border>
-                <ComboBox SelectedItem="{Binding DbProvider}"
-                          ItemsSource="{Binding Providers}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <TextBox Watermark="Host" Text="{Binding Host}"/>
-                <TextBox Watermark="Port" Text="{Binding Port}"/>
-                <TextBox Watermark="Username" Text="{Binding Username}"/>
-                <TextBox Watermark="Password" PasswordChar="*" Text="{Binding Password}"/>
-                <TextBox Watermark="Database" Text="{Binding Database}"/>
-                <Button Command="{Binding $parent[Window].DataContext.ConnectCommand}">
-                      
-                </Button>
-            </StackPanel>
-        </Border>
-        
-    </Grid>
+						<ComboBox Margin="2" ItemsSource="{Binding Providers}"
+      SelectedItem="{Binding DbProvider}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Name}"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+					</DockPanel>
+					<DockPanel LastChildFill="True">
+						
+						<StackPanel Margin="2">
+							<TextBlock Text="Host:"/>
+							<TextBox Text="{Binding Host}"/>
+						</StackPanel>
+						<StackPanel Width="70"
+						            DockPanel.Dock="Right"
+						            Margin="2">
+							<TextBlock Text="Port:"/>
+							<TextBox Text="{Binding Port}"/>
+						</StackPanel>
+					</DockPanel>
+					<StackPanel Margin="2">
+						<TextBlock Text="User:"/>
+						<TextBox Text="{Binding Username}"/>
+					</StackPanel>
+					<StackPanel Margin="2">
+						<TextBlock Text="Password:"/>
+						<TextBox Text="{Binding Password}"
+						         PasswordChar="*"
+						         />
+					</StackPanel>
+					<StackPanel Margin="2">
+						<TextBlock Text="Data Base name:"/>
+						<TextBox Text="{Binding Database}"/>
+					</StackPanel>
+					<Button IsDefault="True"
+                Margin="0,10"
+                Command="{Binding TryConnectCommand}">Connect</Button>
+					<Button Command="{Binding CancelConnectCommand}" >Cancel</Button>
+				</StackPanel>
+			</Border>
+		</Grid>
+	</DockPanel>
 </Window>

@@ -1,0 +1,112 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:valueConverters="clr-namespace:Yukonda.UI.ValueConverters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="200"
+             Background="#90FFFFFF"
+             IsVisible="{Binding IsShown}"
+             x:Class="Yukonda.UI.Controls.InsertItemPopup">
+    <UserControl.Styles>
+        <Style Selector="TextBox.textBox">
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="#20000000"/>
+        </Style>
+        <Style Selector="TextBox.textBox:focus">
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Background" Value="DodgerBlue"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style Selector="Button">
+            
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="6"
+                                Height="24"
+                                Background="{TemplateBinding Background}">
+                            <TextBlock Text="{TemplateBinding Content}"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style Selector="Button[Tag=highlighted]">
+            <Setter Property="Background" Value="DodgerBlue"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+        </Style>
+        <Style Selector="Button[IsDefault=true]">
+            <Setter Property="Background" Value="DodgerBlue"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+        </Style>
+        <Style Selector="Button:pointerpressed">
+            <Setter Property="Background" Value="CornflowerBlue"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+        </Style>
+    </UserControl.Styles>
+    <DockPanel LastChildFill="True"
+               Name="sqlView"
+               Height="200"
+               DockPanel.Dock="Bottom">
+        <Border Background="Transparent" Height="50"
+				        
+                DockPanel.Dock="Top">
+            <DockPanel LastChildFill="True">
+                <StackPanel Orientation="Horizontal" Spacing="2"
+                            >
+                    <TextBlock VerticalAlignment="Center"
+                               FontSize="30"
+                               FontWeight="Bold"
+                               Margin="20,0">Insert</TextBlock>
+                    <TextBlock VerticalAlignment="Center"
+                               FontSize="30"
+                               FontWeight="Bold"
+                               Margin="20,0"
+                               Text="{Binding ImsertType}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="10"
+                            Margin="20,0"
+                            HorizontalAlignment="Right"
+                            >
+                    <Button Command="{Binding InsertCommand}" Tag="highlighted">Insert</Button>
+                    <Button Command="{Binding CancelInsertingCommand}" >Cancel</Button>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+        <DockPanel LastChildFill="True" IsVisible="{Binding InsertType, Converter={valueConverters:IsEqualConverter}, ConverterParameter=Column}">
+        <StackPanel Orientation="Vertical" Width="120"
+                    DockPanel.Dock="Left">
+            <TextBlock Text="Data type: "/>
+            <ComboBox ItemsSource="{Binding DataTypes}"
+                      SelectedItem="{Binding Column.DataType}"></ComboBox>
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Column name: "/>
+            <TextBox Classes="textBox" Text="{Binding Column.AttributeName}"></TextBox>
+        </StackPanel>
+    </DockPanel>
+        <ItemsControl ItemsSource="{Binding Cells}" IsVisible="{Binding InsertType, Converter={valueConverters:IsEqualConverter}, ConverterParameter=Row}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical" Width="120"
+                                Margin="10,0">
+                        <TextBox Classes="textBox" Text="{Binding Value}"></TextBox>
+                        <TextBlock Text="{Binding AttributeName}" TextAlignment="Center" Foreground="Blue"/>
+                        <TextBlock Text="{Binding DataType}" TextAlignment="Center" Foreground="Goldenrod"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </DockPanel>
+</UserControl>
