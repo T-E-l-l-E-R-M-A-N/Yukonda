@@ -1,0 +1,104 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Yukonda.ViewModels"
+             xmlns:views="clr-namespace:Yukonda.Views"
+             xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
+             xmlns:mx3d="https://schemas.eremexcontrols.net/avalonia/controls3d"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="viewModels:ConnectionPageViewModel"
+             x:Class="Yukonda.Views.ConnectionPageView">
+    <StackPanel Orientation="Horizontal"
+                Spacing="90">
+        <DockPanel LastChildFill="True" Width="248">
+            <Border Height="50"
+                    DockPanel.Dock="Top">
+                <TextBlock FontFamily="{DynamicResource OpenSansLight}"
+                           FontStyle="Italic"
+                           FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="сведения"
+                           Foreground="Black"
+                />
+            </Border>
+            <WrapPanel Orientation="Horizontal"
+            >
+                <WrapPanel.Styles>
+                    <Style Selector="Border">
+                        <Setter Property="BorderThickness" Value="3"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+                    <Style Selector="Border:pointerover">
+                        <Setter Property="Background" Value="LightGray"/>
+                        <Setter Property="BorderBrush" Value="Gray"/>
+                    </Style>
+                </WrapPanel.Styles>
+                <Button Theme="{DynamicResource TileButtonTheme}"
+                        Tag="активен"
+                        Background="Orange"
+                        Width="120"
+                        Foreground="#FFFFFF"
+                        Height="120">
+                    <Svg Width="52"
+                         Height="52"
+                         Css="path {fill: #FFF}"
+                         Path="avares://Yukonda/Assets/Icons/database.svg"/>
+                </Button>
+                <Button Width="248"
+                        Height="120"
+                        Background="Teal"
+                        Tag="Искать"
+                        Foreground="#FFFFFF"
+                        Theme="{DynamicResource TileButtonTheme}"
+                        ToolTip.Tip="Искать">
+                    <Svg Width="52"
+                         Height="52"
+                         Css="path {fill: #FFF}"
+                         Path="avares://Yukonda/Assets/Icons/magnifying-glass.svg"/>
+                </Button>
+                <Button Width="56"
+                        Height="56"
+                        Background="Red"
+                        Padding="0,0,0,0"
+                        Margin="0,30,8,8"
+                        Theme="{DynamicResource TileButtonTheme}"
+                        ToolTip.Tip="Закрыть подключение"
+                        Command="{Binding Connection.DisconnectCommand}">
+                    <Svg Width="38"
+                         Height="38"
+                         Css="path {fill: #FFF}"
+                         Path="avares://Yukonda/Assets/Icons/ban.svg"/>
+                </Button>
+                
+            </WrapPanel>
+        </DockPanel>
+        <DockPanel LastChildFill="True">
+            <Border Height="50"
+                    DockPanel.Dock="Top">
+                <TextBlock FontFamily="{DynamicResource OpenSansLight}"
+                           FontStyle="Italic"
+                           FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="таблицы"
+                           Foreground="Black"
+                />
+            </Border>
+            <ScrollViewer>
+                <ItemsControl ItemsSource="{Binding Tables}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Width="248"
+                                    Height="120"
+                                
+                                    Background="Purple"
+                                    Theme="{DynamicResource TileButtonTheme}"
+                                    Foreground="#FFFFFF"
+                                    Tag="{Binding Name}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </DockPanel>
+    </StackPanel>
+</UserControl>

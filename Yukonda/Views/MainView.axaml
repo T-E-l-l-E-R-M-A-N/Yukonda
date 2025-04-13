@@ -1,0 +1,140 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Yukonda.ViewModels"
+             xmlns:v="clr-namespace:Yukonda.Views"
+             xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Yukonda.Views.MainView"
+             x:DataType="vm:MainViewModel"
+             Background="Transparent"
+             Foreground="#FFFFFF"
+             FontFamily="Verdana">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+    <UserControl.Styles>
+        <Style Selector="Border.toolBar Button">
+            <Setter Property="Theme" Value="{DynamicResource toolBarButtonTheme}" />
+        </Style>
+
+
+    </UserControl.Styles>
+    <UserControl.Resources>
+
+        <ControlTheme x:Key="toolBarButtonTheme" TargetType="Button">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ContentPresenter Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      Background="{TemplateBinding Background}"
+                                      Padding="{TemplateBinding Padding}">
+                    </ContentPresenter>
+                </ControlTemplate>
+            </Setter>
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="#50FFFFFF" />
+            </Style>
+        </ControlTheme>
+    </UserControl.Resources>
+    <Grid>
+        <DockPanel LastChildFill="True"
+                   Background="#EDEDED">
+            <Border Height="70"
+                    Padding="90,0"
+                    Classes="toolBar"
+                    DockPanel.Dock="Top"
+                    ClipToBounds="False">
+                <DockPanel LastChildFill="True"
+                           VerticalAlignment="Center"
+                           Height="30"
+                           ClipToBounds="False">
+                    <Button DockPanel.Dock="Left"
+                            FontSize="24"
+                            BorderThickness="1"
+                            BorderBrush="#000000"
+                            Theme="{DynamicResource SymbolButton}"
+
+                            Command="{Binding ReturnCommand}"
+                            Classes="toolBarButton"
+                            ClipToBounds="False"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Padding="0"
+                            Height="30"
+                            Width="30">
+                        <Svg Path="avares://Yukonda/Assets/Icons/arrow-left.svg"
+                             Width="14"
+                             Height="14" />
+                    </Button>
+                    <Button DockPanel.Dock="Left"
+                            Margin="10,0"
+                            FontSize="24"
+                            BorderThickness="1"
+                            BorderBrush="#000000"
+                            Theme="{DynamicResource SymbolButton}"
+                            Name="tooglePopup"
+                            Command="{Binding NewConnectionCommand}"
+                            Classes="toolBarButton"
+                            ClipToBounds="False"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Padding="0"
+                            Height="30"
+                            Width="30">
+                        <Svg Path="avares://Yukonda/Assets/Icons/plus.svg"
+                             Width="14"
+                             Height="14" />
+                    </Button>
+
+                    <TextBlock Text="{Binding CurrentPage.Name}"
+                               Margin="10,0"
+                               FontFamily="{StaticResource OpenSansLight}"
+                               Foreground="#000000"
+                               FontSize="24"
+                               ClipToBounds="False"
+                               VerticalAlignment="Center" />
+                    <Grid>
+                        <TextBlock Text="{Binding CurrentPage.Name}" />
+                    </Grid>
+                </DockPanel>
+            </Border>
+            <ScrollBar Name="ScrollBar"
+                       Orientation="Horizontal"
+                       DockPanel.Dock="Bottom"
+                       Value="{Binding #ContentView.ScrollOffset, Mode=TwoWay}">
+            </ScrollBar>
+            <Grid Background="#FFFFFF">
+                <actipro:ScrollableOverflowPresenter Name="ContentView">
+                    <actipro:ScrollableOverflowPresenter.ScrollButtonTheme>
+                        <ControlTheme TargetType="Button">
+                            <Setter Property="Opacity" Value="0" />
+                        </ControlTheme>
+                    </actipro:ScrollableOverflowPresenter.ScrollButtonTheme>
+                    <Grid Classes="content"
+                          Name="ContentGrid"
+                      
+                          Classes.visible="{Binding CurrentPage, Converter={x:Static ObjectConverters.IsNotNull}, UpdateSourceTrigger=PropertyChanged}">
+                        <ContentControl Content="{Binding CurrentPage}"
+                                        Margin="90,0,0,0"
+                                        Background="Transparent">
+                        </ContentControl>
+                    </Grid>
+                </actipro:ScrollableOverflowPresenter>
+            </Grid>
+            
+        </DockPanel>
+        <Grid>
+            <Rectangle Fill="#50FFFFFF"
+                       IsVisible="{Binding ConnectionPopup.IsShown}" />
+            <ContentControl Content="{Binding ConnectionPopup}"></ContentControl>
+
+        </Grid>
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,29 @@
+<Project>
+  <!-- https://learn.microsoft.com/en-us/nuget/consume-packages/central-package-management -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Avalonia packages -->
+    <!-- Important: keep version in sync! -->
+    <PackageVersion Include="ActiproSoftware.Controls.Avalonia" Version="25.1.1" />
+    <PackageVersion Include="Aspose.Imaging" Version="25.4.0" />
+    <PackageVersion Include="Avalonia" Version="11.2.6" />
+    <PackageVersion Include="Avalonia.Svg" Version="11.2.6.1" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.2.6" />
+    <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.2.6" />
+    <PackageVersion Include="Avalonia.Diagnostics" Version="11.2.6" />
+    <PackageVersion Include="Avalonia.Desktop" Version="11.2.6" />
+    <PackageVersion Include="Avalonia.iOS" Version="11.2.6" />
+    <PackageVersion Include="Avalonia.Browser" Version="11.2.6" />
+    <PackageVersion Include="Avalonia.Android" Version="11.2.6" />
+    <PackageVersion Include="Avalonia.Xaml.Behaviors" Version="11.2.6" />
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageVersion Include="Dapper" Version="2.1.66" />
+    <PackageVersion Include="Eremex.Avalonia.Controls3D" Version="1.1.118" />
+    <PackageVersion Include="Npgsql" Version="9.0.3" />
+    <PackageVersion Include="SkiaSharp.Extended" Version="2.0.0" />
+    <PackageVersion Include="SkiaSharp.Views" Version="3.116.1" />
+    <PackageVersion Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.1" />
+  </ItemGroup>
+</Project>

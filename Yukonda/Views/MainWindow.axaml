@@ -1,0 +1,119 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Yukonda.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:Yukonda.Views"
+        xmlns:valueConverters="clr-namespace:Yukonda.ValueConverters"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Yukonda.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Yukonda"
+        TransparencyLevelHint="Transparent"
+        TransparencyBackgroundFallback="Transparent"
+        ExtendClientAreaToDecorationsHint="True"
+        MinHeight="32"
+        Background="Purple"
+        MinWidth="870"
+        FontFamily="{StaticResource OpenSansLight}">
+    <Window.Styles>
+        <Style Selector="Border.titleBar Button">
+            <Setter Property="Theme" Value="{DynamicResource WindowCaptionButton}" />
+        </Style>
+        <Style Selector="Border.titleBar Rectangle#TitleBarBackground">
+            <Setter Property="Fill" Value="#C4000000" />
+        </Style>
+        <Style Selector="Window[WindowState=Maximized] Border.titleBar Rectangle#TitleBarBackground">
+            <Setter Property="Fill" Value="#000000" />
+        </Style>
+    </Window.Styles>
+    <Window.Resources>
+        
+        
+        <ControlTheme x:Key="WindowCaptionButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ContentPresenter Width="30"
+                                      Height="30"
+                                      Background="{TemplateBinding Background}"
+                                      Foreground="{TemplateBinding Foreground}"
+                                      Padding="{TemplateBinding Padding}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}" />
+                </ControlTemplate>
+            </Setter>
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="CornflowerBlue" />
+            </Style>
+            <Style Selector="^#CaptionButtonClose:pointerover">
+                <Setter Property="Background" Value="Red" />
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="Background" Value="DarkBlue" />
+            </Style>
+            <Style Selector="^#CaptionButtonClose:pressed">
+                <Setter Property="Background" Value="DarkRed" />
+            </Style>
+        </ControlTheme>
+        <ControlTheme x:Key="{x:Type Window}" TargetType="Window">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border>
+                        <Border Margin="8,8,8,8"
+                                BorderBrush="Gray"
+                                BorderThickness="1">
+                            <DockPanel LastChildFill="True">
+                                <Border DockPanel.Dock="Top"
+                                        Height="30"
+                                        ZIndex="1"
+                                        Classes="titleBar">
+                                    <Grid>
+                                        <Rectangle Fill="#90000000"
+                                                   Name="TitleBarBackground"
+                                                   IsHitTestVisible="False" />
+                                        <Border Width="24"
+                                                Height="24"
+                                                Background="{TemplateBinding Background}"
+                                                Margin="4,0,0,0"
+                                                HorizontalAlignment="Left" />
+                                        <TextBlock VerticalAlignment="Center"
+                                                   FontSize="16"
+                                                   Foreground="#FFFFFF"
+                                                   TextAlignment="Center"
+                                                   Text="{TemplateBinding Title}" />
+                                        <StackPanel Orientation="Horizontal"
+                                                    HorizontalAlignment="Right">
+                                            <Button FontFamily="Segoe UI Symbol"
+                                                    FontSize="12"
+                                                    Padding="10"
+                                                    Name='CaptionButtonMinimize'
+                                                    Content=""/>
+                                            <Button FontFamily="Segoe UI Symbol"
+                                                    FontSize="12"
+                                                    Padding="8"
+                                                    Name='CaptionButtonClose'
+                                                    Content="" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <Border Background="{TemplateBinding Background}"
+                                        ZIndex="0">
+                                    <ContentPresenter Content="{TemplateBinding Content}"></ContentPresenter>
+                                </Border>
+                            </DockPanel>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+            
+        </ControlTheme>
+    </Window.Resources>
+
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <views:MainView />
+</Window>

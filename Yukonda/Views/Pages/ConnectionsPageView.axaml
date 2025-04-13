@@ -1,0 +1,134 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Yukonda.ViewModels"
+             xmlns:views="clr-namespace:Yukonda.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="viewModels:ConnectionsPageViewModel"
+             x:Class="Yukonda.Views.ConnectionsPageView">
+    <Grid>
+        <DockPanel Width="250"
+                   IsVisible="{Binding !Connections.Count}"
+                   LastChildFill="True">
+            <Border Height="50"
+                    DockPanel.Dock="Top">
+                <TextBlock FontFamily="{DynamicResource OpenSansLight}"
+                           FontStyle="Italic"
+                           FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="Нет активных соединений"
+                           Foreground="Black" />
+            </Border>
+            <Button Tag="подключиться"
+                    Width="248"
+                    Height="120"
+                    Theme="{DynamicResource TileButtonTheme}"
+                    Foreground="#FFFFFF"
+                    Background="Orange"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Command="{Binding NewConnectionCommand}"/>
+        </DockPanel>
+        <StackPanel Spacing="90"
+                    IsVisible="{Binding Connections.Count}"
+                    Orientation="Horizontal">
+            <DockPanel Width="200"
+                       LastChildFill="True">
+                <Border Height="50"
+                        DockPanel.Dock="Top">
+                    <TextBlock FontFamily="{DynamicResource OpenSansLight}"
+                               FontStyle="Italic"
+                               FontSize="20"
+                               VerticalAlignment="Center"
+                               Text="Добавить новое"
+                               Foreground="Black" />
+                </Border>
+                <Button Tag="подключиться"
+                        Width="248"
+                        Height="120"
+                        Theme="{DynamicResource TileButtonTheme}"
+                        Foreground="#FFFFFF"
+                        Background="teal"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Command="{Binding NewConnectionCommand}">
+                    <Svg Path="avares://Yukonda/Assets/Icons/plus.svg"
+                         Css="path {fill: #FFF}"
+                         Width="52"
+                         Height="52" />
+                </Button>
+            </DockPanel>
+            <DockPanel>
+                <Border Height="50"
+                        DockPanel.Dock="Top">
+                    <TextBlock FontFamily="{DynamicResource OpenSansLight}"
+                               FontStyle="Italic"
+                               FontSize="20"
+                               VerticalAlignment="Center"
+                               Text="Активные подключения"
+                               Foreground="Black" />
+                </Border>
+                <ItemsControl ItemsSource="{Binding Connections}"
+                              
+                              Margin="0,0,0,0"
+                              HorizontalAlignment="Left"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                              BorderThickness="0"
+                              Background="Transparent">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button FontSize="11"
+                                    Padding="10,-5,10,5"
+                                    Background="Transparent"
+                                    HorizontalContentAlignment="Left"
+                                        Command="{Binding OpenConnectionCommand}" >
+                                <StackPanel Spacing="9"
+                                            
+                                            TextElement.Foreground="#FFFFFF"
+                                            HorizontalAlignment="Left">
+                                    <TextBlock Text="{Binding Db}"
+                                               FontSize="10"
+                                               FontFamily="{StaticResource OpenSansBold}"/>
+                                    <TextBlock Text="{Binding Host}"
+                                               FontSize="10"
+                                               FontFamily="{StaticResource OpenSansLight}"/>
+                                    
+                                </StackPanel>
+                            </Button>
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemContainerTheme>
+                        <ControlTheme TargetType="ContentPresenter">
+                            <Setter Property="Margin" Value="0,0,10,10" />
+                            <Setter Property="Background" Value="Purple" />
+                            <Setter Property="BorderThickness" Value="3" />
+                            <Setter Property="Foreground" Value="#FFFFFF" />
+                            <Setter Property="MinHeight" Value="70" />
+                            <Setter Property="Width" Value="300" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="Svg.Css" Value="path {fill: #fff}" />
+                            <Setter Property="FontFamily" Value="{StaticResource OpenSans}" />
+
+                            <Style Selector="^:pointerover">
+                                <Setter Property="Background" Value="#DDDDDD" />
+                            </Style>
+
+                            <Style Selector="^:focus">
+                                <Setter Property="BorderBrush" Value="Gray" />
+                                
+                            </Style>
+                        </ControlTheme>
+                    </ItemsControl.ItemContainerTheme>
+                </ItemsControl>
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

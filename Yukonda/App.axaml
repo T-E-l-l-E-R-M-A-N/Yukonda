@@ -1,0 +1,315 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:Yukonda"
+             x:Class="Yukonda.App"
+             RequestedThemeVariant="Default">
+    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <SimpleTheme/>
+        
+        <Style Selector="Button:disabled">
+            <Setter Property="Opacity" Value="0.3"/>
+        </Style>
+        
+        <Style Selector="Button.toolBarButton Svg">
+            <Setter Property="Css" Value="path {fill: black}"/>
+        </Style>
+        <Style Selector="Button.toolBarButton:pressed Svg">
+            <Setter Property="Css" Value="path {fill: #FFF}"/>
+        </Style>
+        <Style Selector="Button.popupToolbarButton Svg">
+            <Setter Property="Css" Value="path {fill: #FFF}"/>
+        </Style>
+        <Style Selector="Button.popupToolbarButton:pointerover">
+            <Setter Property="Background" Value="#20FFFFFF"/>
+        </Style>
+        <Style Selector="Button.popupToolbarButton:pressed">
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="#FFFFFF"/>
+        </Style>
+        <Style Selector="Button.popupToolbarButton:pressed Svg">
+            <Setter Property="Css" Value="path {fill: purple}"/>
+        </Style>
+        
+        <Style Selector="ToggleButton.toolBarButton Svg">
+            <Setter Property="Css" Value="path {fill: black}"/>
+        </Style>
+        <Style Selector="ToggleButton.toolBarButton:pressed Svg">
+            <Setter Property="Css" Value="path {fill: #FFF}"/>
+        </Style>
+        <Style Selector="ToggleButton.toolBarButton:checked Svg">
+            <Setter Property="Css" Value="path {fill: #FFF}"/>
+        </Style>
+        <Style Selector="ToggleButton.popupToolbarButton:pointerover">
+            <Setter Property="Background" Value="#20FFFFFF"/>
+        </Style>
+        <Style Selector="ToggleButton.popupToolbarButton Svg">
+            <Setter Property="Css" Value="path {fill: #FFF}"/>
+        </Style>
+        <Style Selector="ToggleButton.popupToolbarButton:pressed">
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="#FFFFFF"/>
+        </Style>
+        <Style Selector="ToggleButton.popupToolbarButton:pressed Svg">
+            <Setter Property="Css" Value="path {fill: purple}"/>
+        </Style>
+    </Application.Styles>
+    <Application.Resources>
+        <FontFamily x:Key="OpenSans">avares://Yukonda/Assets/Fonts/OpenSans-Regular.ttf#Open Sans</FontFamily>
+        <FontFamily x:Key="OpenSansLight">avares://Yukonda/Assets/Fonts/OpenSans-Light.ttf#Open Sans</FontFamily>
+        <FontFamily x:Key="OpenSansBold">avares://Yukonda/Assets/Fonts/OpenSans-Bold.ttf#Open Sans</FontFamily>
+        
+        <ControlTheme x:Key="TileButtonTheme" TargetType="Button">
+            <Setter Property="Margin" Value="0,0,8,8"/>
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="MinHeight" Value="56"/>
+            <Setter Property="MinWidth" Value="56"/>
+            <Setter Property="MaxHeight" Value="248"/>
+            <Setter Property="MaxWidth" Value="248"/>
+            <Setter Property="Padding" Value="0,0,0,15"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{StaticResource OpenSansBold}"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                        <Grid>
+                            <DockPanel LastChildFill="True">
+                                
+                                <TextBlock DockPanel.Dock="Bottom"
+                                           Margin="15,0,15,7"
+                                           Text="{TemplateBinding Tag}"
+                                           IsVisible="{TemplateBinding Tag, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                           FontSize="9"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           FontFamily="{StaticResource OpenSansLight}"/>
+                                <ContentPresenter Name="border"
+                                                  ClipToBounds="False"
+                                                  Content="{TemplateBinding Content}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  Margin="{TemplateBinding Padding}"/>
+                            </DockPanel>
+                            <Border BorderThickness="1"
+                                    Margin="-2"
+                                    BorderBrush="#90FFFFFF"></Border>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+                
+            </Setter>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.3"/>
+                </Transitions>
+            </Setter>
+            
+            <Style Selector="^:pointerover">
+                <Setter Property="BorderBrush" Value="Gray"/>
+            </Style>
+
+            <Style Selector="^:pressed">
+                <Setter Property="RenderTransform" Value="scale(0.98,0.98)" />
+            </Style>
+        </ControlTheme>
+        
+        <ControlTheme x:Key="{x:Type Button}" TargetType="Button">
+            <Setter Property="Margin" Value="0,10"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="MinHeight" Value="32"/>
+            <Setter Property="MinWidth" Value="90"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{StaticResource OpenSansBold}"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ContentPresenter Name="border"
+                                      ClipToBounds="False"
+                                      Background="{TemplateBinding Background}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      CornerRadius="{TemplateBinding CornerRadius}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      Padding="{TemplateBinding Padding}"/>
+                </ControlTemplate>
+            </Setter>
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="#DDDDDD" />
+            </Style>
+
+            <Style Selector="^:pressed">
+                <Setter Property="Background" Value="#000000" />
+                <Setter Property="Foreground" Value="#E2E2E2" />
+            </Style>
+        </ControlTheme>
+        
+        <ControlTheme x:Key="SymbolButton" TargetType="Button">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ContentPresenter 
+                                      CornerRadius="{TemplateBinding CornerRadius}"
+                                      Background="{TemplateBinding Background}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      Foreground="{TemplateBinding Foreground}"
+                                      Padding="{TemplateBinding Padding}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}" />
+                </ControlTemplate>
+            </Setter>
+
+            <Style Selector="^">
+                <Setter Property="CornerRadius" Value="20"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Style>
+            <Style Selector="^:pointerover">
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Background" Value="Gray"/>
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="Foreground" Value="#FFFFFF"/>
+                <Setter Property="Background" Value="Black"/>
+            </Style>
+            <Style Selector="^:disabled">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Style>
+        </ControlTheme>
+        
+        <ControlTheme x:Key="SymbolToggleButton" TargetType="ToggleButton">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ContentPresenter 
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        Foreground="{TemplateBinding Foreground}"
+                        Padding="{TemplateBinding Padding}"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}" />
+                </ControlTemplate>
+            </Setter>
+
+            <Style Selector="^">
+                <Setter Property="CornerRadius" Value="20"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Style>
+            <Style Selector="^:pointerover">
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Background" Value="Gray"/>
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="Foreground" Value="#FFFFFF"/>
+                <Setter Property="Background" Value="Black"/>
+            </Style>
+            <Style Selector="^:checked">
+                <Setter Property="Foreground" Value="#FFFFFF"/>
+                <Setter Property="Background" Value="Black"/>
+            </Style>
+        </ControlTheme>
+        
+         <ControlTheme x:Key="SingleLineTextBox" TargetType="TextBox">
+            <Setter Property="Margin" Value="0,10" />
+            <Setter Property="Background" Value="#FFFFFF" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="CaretBrush" Value="Blue" />
+            <Setter Property="SelectionBrush" Value="Blue" />
+            <Setter Property="SelectionForegroundBrush" Value="#FFFFFF" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Name="border"
+                            Cursor="IBeam"
+                            ClipToBounds="False"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                        <DockPanel Margin="{TemplateBinding Padding}"
+                                   ClipToBounds="False"
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+
+                            <TextBlock Name="floatingWatermark"
+                                       DockPanel.Dock="Top"
+                                       Margin="5"
+                                       Opacity="0.5"
+                                       FontSize="{DynamicResource FontSizeSmall}"
+                                       Text="{TemplateBinding Watermark}"
+                                       IsVisible="{Binding $parent[TextBox].Text, Converter={x:Static StringConverters.IsNullOrEmpty}}">
+                            </TextBlock>
+
+                            <DataValidationErrors>
+
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <ContentPresenter Grid.Column="0"
+                                                      Grid.ColumnSpan="1"
+                                                      Content="{TemplateBinding InnerLeftContent}" />
+                                    <ScrollViewer Name="PART_ScrollViewer"
+                                                  Grid.Column="1"
+                                                  Grid.ColumnSpan="1"
+                                                  AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+                                                  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+                                                  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                                                  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+                                                  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+                                        <Panel>
+                                            <TextPresenter Name="PART_TextPresenter"
+                                                           CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
+                                                           CaretBrush="{TemplateBinding CaretBrush}"
+                                                           CaretIndex="{TemplateBinding CaretIndex}"
+                                                           LineHeight="{TemplateBinding LineHeight}"
+                                                           LetterSpacing="{TemplateBinding LetterSpacing}"
+                                                           PasswordChar="{TemplateBinding PasswordChar}"
+                                                           Margin="5"
+                                                           RevealPassword="{TemplateBinding RevealPassword}"
+                                                           SelectionBrush="{TemplateBinding SelectionBrush}"
+                                                           SelectionEnd="{TemplateBinding SelectionEnd}"
+                                                           SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                                           SelectionStart="{TemplateBinding SelectionStart}"
+                                                           Text="{TemplateBinding Text,Mode=TwoWay}"
+                                                           TextAlignment="{TemplateBinding TextAlignment}"
+                                                           TextWrapping="{TemplateBinding TextWrapping}" />
+                                        </Panel>
+                                        <ScrollViewer.Styles>
+                                            <Style Selector="ScrollContentPresenter#PART_ContentPresenter">
+                                                <Setter Property="Cursor" Value="IBeam" />
+                                            </Style>
+                                        </ScrollViewer.Styles>
+                                    </ScrollViewer>
+                                    <ContentPresenter Grid.Column="2"
+                                                      Grid.ColumnSpan="1"
+                                                      Content="{TemplateBinding InnerRightContent}" />
+                                </Grid>
+                            </DataValidationErrors>
+                        </DockPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+            <Style Selector="^:focus">
+                <Setter Property="Background" Value="Gray" />
+                <Setter Property="Foreground" Value="#FFFFFF" />
+            </Style>
+        </ControlTheme>
+    </Application.Resources>
+</Application>
