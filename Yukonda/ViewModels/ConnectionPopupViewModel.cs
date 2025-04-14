@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using Dapper;
 using Npgsql;
 using Yukonda.Models;
 
@@ -16,7 +18,7 @@ public partial class ConnectionPopupViewModel : PopupViewModelBase
     [ObservableProperty] private ConnectionModel _connectionModel = null!;
 
     [ObservableProperty] private List<ProviderModel> _providers;
-
+    [ObservableProperty] private string _exMessage;
     public ConnectionPopupViewModel(MainViewModel mainViewModel, ConnectionsPageViewModel connectionsPageView)
     {
         _mainViewModel = mainViewModel;
@@ -40,19 +42,26 @@ public partial class ConnectionPopupViewModel : PopupViewModelBase
     {
         try
         {
-            ConnectionModel.DbConnection = new NpgsqlConnection(
+            if(ConnectionModel.Port == 0)
+                ConnectionModel.DbConnection = new NpgsqlConnection(
+                    $"Host={ConnectionModel.Host};Username={ConnectionModel.User};Password={ConnectionModel.Pass};Database={ConnectionModel.Db}");
+            else
+                ConnectionModel.DbConnection = new NpgsqlConnection(
                 $"Host={ConnectionModel.Host};Port={ConnectionModel.Port};Username={ConnectionModel.User};Password={ConnectionModel.Pass};Database={ConnectionModel.Db}");
             _connectionsPageView.Connections.Add(ConnectionModel);
             
             
+            
             File.WriteAllLines("connection.db", new string[] {ConnectionModel.Host, ConnectionModel.Port.ToString(), ConnectionModel.User, ConnectionModel.Pass, ConnectionModel.Db});
             
+            ConnectionModel.OpenConnection();
             Cancel();
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            Cancel();
+            ExMessage += "Data base connection is not in open state\n";
+            ExMessage += e;
         }
     }
 

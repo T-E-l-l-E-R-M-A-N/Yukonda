@@ -25,10 +25,7 @@
     <PackageReference Include="Avalonia.Xaml.Behaviors" />
     <PackageReference Include="CommunityToolkit.Mvvm" />
     <PackageReference Include="Dapper" />
-    <PackageReference Include="Eremex.Avalonia.Controls3D" />
     <PackageReference Include="Npgsql" />
-    <PackageReference Include="SkiaSharp.Extended" />
-    <PackageReference Include="SkiaSharp.Views" />
   </ItemGroup>
 
   <ItemGroup>

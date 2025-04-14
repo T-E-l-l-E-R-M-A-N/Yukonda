@@ -6,99 +6,409 @@
              xmlns:views="clr-namespace:Yukonda.Views"
              xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
              xmlns:mx3d="https://schemas.eremexcontrols.net/avalonia/controls3d"
+             xmlns:valueConverters="clr-namespace:Yukonda.ValueConverters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="viewModels:ConnectionPageViewModel"
              x:Class="Yukonda.Views.ConnectionPageView">
-    <StackPanel Orientation="Horizontal"
-                Spacing="90">
-        <DockPanel LastChildFill="True" Width="248">
+    <DockPanel LastChildFill="True">
+        <DockPanel LastChildFill="True"
+                   DockPanel.Dock="Right"
+                   IsVisible="{Binding DataViewIsOpen}"
+
+                   Width="{Binding $parent[DockPanel].Bounds.Width, Converter={valueConverters:HalfOfWidthConverter}}"
+                   Margin="0,0" HorizontalAlignment="Left">
             <Border Height="50"
                     DockPanel.Dock="Top">
                 <TextBlock FontFamily="{DynamicResource OpenSansLight}"
                            FontStyle="Italic"
                            FontSize="20"
                            VerticalAlignment="Center"
-                           Text="сведения"
-                           Foreground="Black"
-                />
+                           Text="просмотр данных"
+                           Foreground="Black" />
             </Border>
-            <WrapPanel Orientation="Horizontal"
-            >
-                <WrapPanel.Styles>
-                    <Style Selector="Border">
-                        <Setter Property="BorderThickness" Value="3"/>
-                        <Setter Property="Background" Value="Transparent"/>
-                    </Style>
-                    <Style Selector="Border:pointerover">
-                        <Setter Property="Background" Value="LightGray"/>
-                        <Setter Property="BorderBrush" Value="Gray"/>
-                    </Style>
-                </WrapPanel.Styles>
-                <Button Theme="{DynamicResource TileButtonTheme}"
-                        Tag="активен"
-                        Background="Orange"
-                        Width="120"
-                        Foreground="#FFFFFF"
-                        Height="120">
-                    <Svg Width="52"
-                         Height="52"
-                         Css="path {fill: #FFF}"
-                         Path="avares://Yukonda/Assets/Icons/database.svg"/>
-                </Button>
-                <Button Width="248"
-                        Height="120"
+            <TextBlock Height="50"
+                       DockPanel.Dock="Bottom"
+                       Foreground="Black"
+                       FontFamily="{StaticResource OpenSansLight}"
+                       FontSize="10"
+                       VerticalAlignment="Center"
+                       Text="{Binding CurrentTable.RowsCount}">
+            </TextBlock>
+            <DockPanel LastChildFill="True"
+                       DockPanel.Dock="Bottom"
+                       IsVisible="{Binding DataViewIsOpen}">
+                <Border Height="50"
+                        DockPanel.Dock="Top">
+                    <TextBlock FontFamily="{DynamicResource OpenSansLight}"
+                               FontStyle="Italic"
+                               FontSize="20"
+                               VerticalAlignment="Center"
+                               Text="действия с таблицей"
+                               
+                               TextWrapping="Wrap"
+                               Foreground="Black" />
+                </Border>
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Tag="Добавить строку"
                         Background="Teal"
-                        Tag="Искать"
-                        Foreground="#FFFFFF"
-                        Theme="{DynamicResource TileButtonTheme}"
-                        ToolTip.Tip="Искать">
-                    <Svg Width="52"
-                         Height="52"
-                         Css="path {fill: #FFF}"
-                         Path="avares://Yukonda/Assets/Icons/magnifying-glass.svg"/>
-                </Button>
-                <Button Width="56"
-                        Height="56"
-                        Background="Red"
-                        Padding="0,0,0,0"
-                        Margin="0,30,8,8"
-                        Theme="{DynamicResource TileButtonTheme}"
-                        ToolTip.Tip="Закрыть подключение"
-                        Command="{Binding Connection.DisconnectCommand}">
-                    <Svg Width="38"
-                         Height="38"
-                         Css="path {fill: #FFF}"
-                         Path="avares://Yukonda/Assets/Icons/ban.svg"/>
-                </Button>
-                
-            </WrapPanel>
-        </DockPanel>
-        <DockPanel LastChildFill="True">
-            <Border Height="50"
-                    DockPanel.Dock="Top">
-                <TextBlock FontFamily="{DynamicResource OpenSansLight}"
-                           FontStyle="Italic"
-                           FontSize="20"
-                           VerticalAlignment="Center"
-                           Text="таблицы"
-                           Foreground="Black"
-                />
-            </Border>
-            <ScrollViewer>
-                <ItemsControl ItemsSource="{Binding Tables}">
+                        Margin="0,0,8,8"
+                        Width="56"
+                        Theme="{DynamicResource SmallTileButtonWithUnderLabelTheme}"
+                        Command="{Binding AddItemCommand}">
+                        <Svg Width="38"
+                             Height="38"
+                             Css="path {fill: #FFF}"
+                             Path="avares://Yukonda/Assets/Icons/plus.svg" />
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ Border#border">
+                                <Setter Property="BorderBrush" Value="Gray" />
+                                <Setter Property="Background" Value="Teal" />
+                                <Setter Property="Svg.Css" Value="path {fill: #FFF}" />
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                    <Button
+                        Tag="Удалить строку"
+                        Background="Salmon"
+                        Margin="0,0,8,8"
+                        Width="56"
+                        IsEnabled="{Binding SelectedRow, Converter={x:Static ObjectConverters.IsNotNull}}"
+                        Theme="{DynamicResource SmallTileButtonWithUnderLabelTheme}"
+                        Command="{Binding DeleteItemCommand}">
+                        <Svg Width="38"
+                             Height="38"
+                             Css="path {fill: #FFF}"
+                             Path="avares://Yukonda/Assets/Icons/xmark.svg" />
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ Border#border">
+                                <Setter Property="BorderBrush" Value="Gray" />
+                                <Setter Property="Background" Value="Salmon" />
+                                <Setter Property="Svg.Css" Value="path {fill: #FFF}" />
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Bottom" Height="60" IsVisible="{Binding AddingItem}">
+                <Button Command="{Binding ConfirmAddingCommand}"
+                        Content="Добавить"
+                        DockPanel.Dock="Right"
+                        Width="80"></Button>
+                <ItemsControl  ItemsSource="{Binding Cells}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Width="248"
-                                    Height="120"
-                                
-                                    Background="Purple"
-                                    Theme="{DynamicResource TileButtonTheme}"
-                                    Foreground="#FFFFFF"
-                                    Tag="{Binding Name}"/>
+                            <TextBox Foreground="#000000"
+                                    Background="LightGray"
+                                    Tag="{Binding Value}"
+                                    Text="{Binding Value}"
+                                    FontFamily="{StaticResource OpenSansLight}"
+                                    Theme="{DynamicResource SingleLineTextBox}"
+                                    Height="56"
+                                    Width="120">
+                            </TextBox>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+            </DockPanel>
+            <ScrollViewer Name="CurrentTableView"
+                          Margin="0,0,0,0"
+                          VerticalScrollBarVisibility="Disabled"
+                          HorizontalScrollBarVisibility="Auto">
+                <DockPanel LastChildFill="True">
+                    <ItemsControl ItemsSource="{Binding CurrentTable.Columns}"
+                                  DockPanel.Dock="Top">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Foreground="#FFFFFF"
+                                        Background="Gray"
+                                        Tag="{Binding Attribute}"
+                                        FontFamily="{StaticResource OpenSansBold}"
+                                        Theme="{DynamicResource TileButtonTheme}"
+                                        Height="56"
+                                        Width="120">
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <ScrollViewer
+                        Width="{Binding $parent[UserControl].Bounds.Width, Converter={valueConverters:HalfOfWidthConverter}}"
+                        HorizontalAlignment="Left">
+                        <ItemsControl ItemsSource="{Binding CurrentTable.Rows}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ItemsControl ItemsSource="{Binding Cells}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel Orientation="Horizontal" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Foreground="#000000"
+                                                        Background="LightGray"
+                                                        Tag="{Binding Value}"
+                                                        Command="{Binding SelectRowCommand}"
+                                                        CommandParameter="{Binding Row}"
+                                                        FontFamily="{StaticResource OpenSansLight}"
+                                                        Theme="{DynamicResource TileButtonTheme}"
+                                                        Height="56"
+                                                        Width="120">
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </DockPanel>
+            </ScrollViewer>
+
+        </DockPanel>
+        <DockPanel LastChildFill="True"
+                   DockPanel.Dock="Right"
+                   IsVisible="{Binding QueryToolIsOpen}"
+
+                   Width="{Binding $parent[DockPanel].Bounds.Width, Converter={valueConverters:HalfOfWidthConverter}}"
+                   Margin="0,0" HorizontalAlignment="Left">
+            <Border Height="50"
+                    DockPanel.Dock="Top">
+                <TextBlock FontFamily="{DynamicResource OpenSansLight}"
+                           FontStyle="Italic"
+                           FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="инструмент запросов"
+                           Foreground="Black" />
+            </Border>
+            <DockPanel DockPanel.Dock="Bottom"
+                       Height="100"
+                       Margin="0,0,0,90">
+                <Button Theme="{DynamicResource SmallTileButtonWithUnderLabelTheme}"
+                        DockPanel.Dock="Right"
+                        VerticalAlignment="Top"
+                        Width="58"
+                        Tag="Выполнить"
+                        Command="{Binding ExecuteSQLCommand}"
+                        CommandParameter="{Binding #CommandLine.Text}"
+                        Background="Green">
+                    <Svg Width="30"
+                         Height="30"
+                         Css="path {fill: #FFF}"
+                         Margin="0,-10"
+                         Path="avares://Yukonda/Assets/Icons/play.svg" />
+                    <Button.Styles>
+                        <Style Selector="Button:pointerover /template/ Border#border">
+                            <Setter Property="BorderBrush" Value="Gray" />
+                            <Setter Property="Background" Value="Green" />
+                            <Setter Property="Svg.Css" Value="path {fill: #FFF}" />
+                        </Style>
+                    </Button.Styles>
+                </Button>
+                <TextBox DockPanel.Dock="Bottom"
+                         Background="Transparent"
+                         Margin="0,0,10,0"
+                         Height="120"
+                         Name="CommandLine"
+                ></TextBox>
+            </DockPanel>
+            <TextBlock Text="{Binding SqlLog, FallbackValue=Отчет об ошибках}"
+                       DockPanel.Dock="Bottom"
+                       Foreground="Gray"
+                       Margin="0,15"
+                       IsVisible="{Binding SqlLog, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+            <ScrollViewer DataContext="{Binding CurrentTable}"
+                          Margin="0,0,0,0"
+                          VerticalScrollBarVisibility="Disabled"
+                          HorizontalScrollBarVisibility="Auto">
+                <DockPanel LastChildFill="True">
+                    <ItemsControl ItemsSource="{Binding Columns}"
+                                  DockPanel.Dock="Top">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Foreground="#FFFFFF"
+                                        Background="Gray"
+                                        Tag="{Binding Attribute}"
+                                        FontFamily="{StaticResource OpenSansBold}"
+                                        Theme="{DynamicResource TileButtonTheme}"
+                                        Height="56"
+                                        Width="120">
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <ScrollViewer
+                        Width="{Binding $parent[UserControl].Bounds.Width, Converter={valueConverters:HalfOfWidthConverter}}"
+                        HorizontalAlignment="Left">
+                        <ItemsControl ItemsSource="{Binding Rows}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ItemsControl ItemsSource="{Binding Cells}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel Orientation="Horizontal" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Foreground="#000000"
+                                                        Background="LightGray"
+                                                        Tag="{Binding Value}"
+                                                        FontFamily="{StaticResource OpenSansLight}"
+                                                        Theme="{DynamicResource TileButtonTheme}"
+                                                        Height="56"
+                                                        Width="120">
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </DockPanel>
             </ScrollViewer>
         </DockPanel>
-    </StackPanel>
+        <actipro:ScrollableOverflowPresenter>
+            <StackPanel Orientation="Horizontal">
+            <DockPanel LastChildFill="True" Width="248"
+                       Margin="90,0,0,0">
+                <Border Height="50"
+                        DockPanel.Dock="Top">
+                    <TextBlock FontFamily="{DynamicResource OpenSansLight}"
+                               FontStyle="Italic"
+                               FontSize="20"
+                               VerticalAlignment="Center"
+                               Text="сведения"
+                               Foreground="Black" />
+                </Border>
+                <StackPanel Orientation="Horizontal"
+                            Width="300"
+                            Spacing="50"
+                            DockPanel.Dock="Top"
+                            TextElement.Foreground="Purple"
+                            HorizontalAlignment="Left">
+                    <StackPanel Spacing="2"
+
+                                Width="100">
+                        <TextBlock Text="Адрес сервера" />
+                        <TextBlock Text="Порт" />
+                        <TextBlock Text="Пользователь" />
+                        <TextBlock Text="База данных" />
+                    </StackPanel>
+                    <StackPanel TextElement.FontStyle="Italic"
+                                Width="100"
+                                TextBlock.TextAlignment="Right"
+                                TextElement.FontFamily="{StaticResource OpenSans}"
+                                Margin="0,-2,0,0">
+                        <TextBlock Text="{Binding Connection.Host}" />
+                        <TextBlock Text="{Binding Connection.Port}" />
+                        <TextBlock Text="{Binding Connection.User}" />
+                        <TextBlock Text="{Binding Connection.Db}" />
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+            <DockPanel LastChildFill="True"
+                       Margin="90,0,0,0"
+                       Height="150"
+                       VerticalAlignment="Top"
+                       Width="320">
+                <Border Height="50"
+                        DockPanel.Dock="Top">
+                    <TextBlock FontFamily="{DynamicResource OpenSansLight}"
+                               FontStyle="Italic"
+                               FontSize="20"
+                               VerticalAlignment="Center"
+                               Text="действия"
+                               Foreground="Black" />
+                </Border>
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Tag="Команды SQL"
+                        Background="Teal"
+                        Margin="0,0,8,8"
+                        Width="56"
+                        Theme="{DynamicResource SmallTileButtonWithUnderLabelTheme}"
+                        Command="{Binding ToggleSqlToolCommand}">
+                        <Svg Width="38"
+                             Height="38"
+                             Css="path {fill: #FFF}"
+                             Path="avares://Yukonda/Assets/Icons/code.svg" />
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ Border#border">
+                                <Setter Property="BorderBrush" Value="Gray" />
+                                <Setter Property="Background" Value="Teal" />
+                                <Setter Property="Svg.Css" Value="path {fill: #FFF}" />
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                    <Button
+                        Tag="Закрыть соединение"
+                        Background="LightSalmon"
+                        Margin="0,0,8,8"
+                        Width="56"
+                        Theme="{DynamicResource SmallTileButtonWithUnderLabelTheme}"
+                        ToolTip.Tip="Закрыть подключение"
+                        Command="{Binding Connection.DisconnectCommand}">
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ Border#border">
+                                <Setter Property="BorderBrush" Value="Gray" />
+                                <Setter Property="Background" Value="Red" />
+                                <Setter Property="Svg.Css" Value="path {fill: #FFF}" />
+                            </Style>
+                        </Button.Styles>
+                        <Svg Width="38"
+                             Height="38"
+                             Css="path {fill: #FFF}"
+                             Path="avares://Yukonda/Assets/Icons/ban.svg" />
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+            <DockPanel LastChildFill="True"
+                       Margin="0,0,20,0"
+                       HorizontalAlignment="Left">
+                <Border Height="50"
+                        DockPanel.Dock="Top">
+                    <TextBlock FontFamily="{DynamicResource OpenSansLight}"
+                               FontStyle="Italic"
+                               FontSize="20"
+                               VerticalAlignment="Center"
+                               Text="таблицы"
+                               Foreground="Black" />
+                </Border>
+                <ScrollViewer>
+                    <ItemsControl ItemsSource="{Binding Tables}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Width="248"
+                                        Height="58"
+                                        Command="{Binding OpenTableCommand}"
+                                        Background="Purple"
+                                        Theme="{DynamicResource TileButtonTheme}"
+                                        Foreground="#FFFFFF"
+                                        Tag="{Binding Name}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </DockPanel>
+            
+        </StackPanel>
+        </actipro:ScrollableOverflowPresenter>
+    </DockPanel>
 </UserControl>

@@ -21,12 +21,12 @@ public partial class MainView : UserControl
         animation.Duration = TimeSpan.Parse("0:0:0.9");
         animation.Children.Add(new KeyFrame()
         {
-            Cue = Cue.Parse("0%", CultureInfo.CurrentCulture),
+            Cue = new Cue(0.0),
             Setters = { new Setter(Grid.MarginProperty, Thickness.Parse("200 0 -200 0")) }
         });
         animation.Children.Add(new KeyFrame()
         {
-            Cue = Cue.Parse("100%", CultureInfo.CurrentCulture),
+            Cue = new Cue(1.0),
             Setters = { new Setter(Grid.MarginProperty, Thickness.Parse("0 0 0 0")) }
         });
         

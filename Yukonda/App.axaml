@@ -1,6 +1,7 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:Yukonda"
+             xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
              x:Class="Yukonda.App"
              RequestedThemeVariant="Default">
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
@@ -11,6 +12,10 @@
 
     <Application.Styles>
         <SimpleTheme/>
+        
+        <Style Selector="actipro|ScrollableOverflowPresenter RepeatButton">
+            <Setter Property="Template" Value="{x:Null}"/>
+        </Style>
         
         <Style Selector="Button:disabled">
             <Setter Property="Opacity" Value="0.3"/>
@@ -72,7 +77,7 @@
             <Setter Property="MinWidth" Value="56"/>
             <Setter Property="MaxHeight" Value="248"/>
             <Setter Property="MaxWidth" Value="248"/>
-            <Setter Property="Padding" Value="0,0,0,15"/>
+            <Setter Property="Padding" Value="0,20,0,15"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="FontFamily" Value="{StaticResource OpenSansBold}"/>
@@ -93,6 +98,7 @@
                                            Foreground="{TemplateBinding Foreground}"
                                            FontFamily="{StaticResource OpenSansLight}"/>
                                 <ContentPresenter Name="border"
+                                                  
                                                   ClipToBounds="False"
                                                   Content="{TemplateBinding Content}"
                                                   ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -123,6 +129,74 @@
             </Style>
         </ControlTheme>
         
+        <ControlTheme x:Key="SmallTileButtonWithUnderLabelTheme" TargetType="Button">
+            <Setter Property="Margin" Value="0,0,8,8"/>
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="MinHeight" Value="56"/>
+            <Setter Property="MinWidth" Value="56"/>
+            <Setter Property="MaxHeight" Value="248"/>
+            <Setter Property="MaxWidth" Value="248"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{StaticResource OpenSansBold}"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <DockPanel LastChildFill="True"
+                               Background="Transparent">
+                                
+                        <TextBlock DockPanel.Dock="Bottom"
+                                   Margin="15,5,15,0"
+                                   Text="{TemplateBinding Tag}"
+                                   IsVisible="{TemplateBinding Tag, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                   FontSize="9"
+                                   Width="56"
+                                   TextWrapping="Wrap"
+                                   Foreground="Gray"
+                                   FontFamily="{StaticResource OpenSansLight}"/>
+                        <Border Background="{TemplateBinding Background}"
+                                Width="56"
+                                Height="56"
+                                Name="border"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}">
+                            <Grid>
+                                <ContentPresenter 
+                                                  Name="x"
+                                                  ClipToBounds="False"
+                                                  Content="{TemplateBinding Content}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  Margin="{TemplateBinding Padding}"/>
+                                <Border BorderThickness="1"
+                                        Margin="-2"
+                                        BorderBrush="#90FFFFFF"></Border>
+                            </Grid>
+                        </Border>
+                        
+                    </DockPanel>
+                    
+                </ControlTemplate>
+                
+            </Setter>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.3"/>
+                </Transitions>
+            </Setter>
+            
+            <Style Selector="^:pointerover /template/ Border#border">
+                <Setter Property="BorderBrush" Value="Gray"/>
+                <Setter Property="Svg.Css" Value="path {fill: black}"/>
+            </Style>
+
+            <Style Selector="^:pressed /template/ Border#border">
+                <Setter Property="RenderTransform" Value="scale(0.98,0.98)" />
+            </Style>
+        </ControlTheme>
+        
         <ControlTheme x:Key="{x:Type Button}" TargetType="Button">
             <Setter Property="Margin" Value="0,10"/>
             <Setter Property="Background" Value="LightGray"/>
@@ -134,7 +208,7 @@
             <Setter Property="FontFamily" Value="{StaticResource OpenSansBold}"/>
             <Setter Property="Template">
                 <ControlTemplate>
-                    <ContentPresenter Name="border"
+                    <ContentPresenter Name="bd"
                                       ClipToBounds="False"
                                       Background="{TemplateBinding Background}"
                                       BorderBrush="{TemplateBinding BorderBrush}"
@@ -147,13 +221,13 @@
                                       Padding="{TemplateBinding Padding}"/>
                 </ControlTemplate>
             </Setter>
-            <Style Selector="^:pointerover">
+            <Style Selector="^:pointerover /template/ ContentPresenter#Bd">
                 <Setter Property="Background" Value="#DDDDDD" />
             </Style>
 
-            <Style Selector="^:pressed">
+            <Style Selector="^:pressed /template/ ContentPresenter#Bd">
                 <Setter Property="Background" Value="#000000" />
-                <Setter Property="Foreground" Value="#E2E2E2" />
+                <Setter Property="TextElement.Foreground" Value="#E2E2E2" />
             </Style>
         </ControlTheme>
         
@@ -270,9 +344,9 @@
                                                   Grid.ColumnSpan="1"
                                                   AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
                                                   BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
-                                                  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                                                  HorizontalScrollBarVisibility="Disabled"
                                                   IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
-                                                  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+                                                  VerticalScrollBarVisibility="Disabled">
                                         <Panel>
                                             <TextPresenter Name="PART_TextPresenter"
                                                            CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"

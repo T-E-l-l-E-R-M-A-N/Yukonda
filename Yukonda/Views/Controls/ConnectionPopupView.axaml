@@ -254,7 +254,8 @@
                                  Watermark="Пользователь" />
                         <TextBox Theme="{DynamicResource SingleLineTextBox}"
                                  Text="{Binding ConnectionModel.Pass}"
-                                 Watermark="Пароль" />
+                                 Watermark="Пароль" 
+                                 PasswordChar="*"/>
                         <TextBox Theme="{DynamicResource SingleLineTextBox}"
                                  Text="{Binding ConnectionModel.Db}"
                                  Watermark="База данных" />
@@ -262,6 +263,10 @@
                                 Command="{Binding AcceptCommand}"
                                 HorizontalAlignment="Left"
                                 Content="Connect" />
+                        <TextBlock Foreground="Red"
+                                   TextWrapping="Wrap"
+                                   Text="{Binding ExMessage, Mode=TwoWay}"/>
+                        
                     </StackPanel>
                 </Grid>
             </DockPanel>

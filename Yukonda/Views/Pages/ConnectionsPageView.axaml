@@ -4,13 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Yukonda.ViewModels"
              xmlns:views="clr-namespace:Yukonda.Views"
+             xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="viewModels:ConnectionsPageViewModel"
              x:Class="Yukonda.Views.ConnectionsPageView">
-    <Grid>
+    <actipro:ScrollableOverflowPresenter>
+        <Grid Margin="90,0,0,0">
         <DockPanel Width="250"
                    IsVisible="{Binding !Connections.Count}"
-                   LastChildFill="True">
+                   LastChildFill="True"
+                   HorizontalAlignment="Left">
             <Border Height="50"
                     DockPanel.Dock="Top">
                 <TextBlock FontFamily="{DynamicResource OpenSansLight}"
@@ -25,10 +28,15 @@
                     Height="120"
                     Theme="{DynamicResource TileButtonTheme}"
                     Foreground="#FFFFFF"
-                    Background="Orange"
+                    Background="Teal"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Command="{Binding NewConnectionCommand}"/>
+                    Command="{Binding NewConnectionCommand}">
+                <Svg Path="avares://Yukonda/Assets/Icons/plus.svg"
+                     Css="path {fill: #FFF}"
+                     Width="52"
+                     Height="52" />
+            </Button>
         </DockPanel>
         <StackPanel Spacing="90"
                     IsVisible="{Binding Connections.Count}"
@@ -131,4 +139,5 @@
             </DockPanel>
         </StackPanel>
     </Grid>
+    </actipro:ScrollableOverflowPresenter>
 </UserControl>

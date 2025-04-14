@@ -47,13 +47,6 @@ public partial class MainViewModel : ViewModelBase
             ConnectionPopup.Accept();
         }
 
-        foreach (var i in Enumerable.Range(0,49))
-        {
-            if (_connectionsPageViewModel.Connections.Count < 48)
-            {
-                _connectionsPageViewModel.Connections.Add(new ConnectionModel(this) {Db = $"Connection: {i}", Host = $"192.168.{i}.51"});
-            }
-        }
     }
 
     public void DisconnectAll()

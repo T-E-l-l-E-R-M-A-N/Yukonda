@@ -52,6 +52,8 @@
                            VerticalAlignment="Center"
                            Height="30"
                            ClipToBounds="False">
+                    <TextBox Width="200"
+                             />
                     <Button DockPanel.Dock="Left"
                             FontSize="24"
                             BorderThickness="1"
@@ -104,28 +106,16 @@
                     </Grid>
                 </DockPanel>
             </Border>
-            <ScrollBar Name="ScrollBar"
-                       Orientation="Horizontal"
-                       DockPanel.Dock="Bottom"
-                       Value="{Binding #ContentView.ScrollOffset, Mode=TwoWay}">
-            </ScrollBar>
             <Grid Background="#FFFFFF">
-                <actipro:ScrollableOverflowPresenter Name="ContentView">
-                    <actipro:ScrollableOverflowPresenter.ScrollButtonTheme>
-                        <ControlTheme TargetType="Button">
-                            <Setter Property="Opacity" Value="0" />
-                        </ControlTheme>
-                    </actipro:ScrollableOverflowPresenter.ScrollButtonTheme>
-                    <Grid Classes="content"
-                          Name="ContentGrid"
+                <Grid Classes="content"
+                      Name="ContentGrid"
                       
-                          Classes.visible="{Binding CurrentPage, Converter={x:Static ObjectConverters.IsNotNull}, UpdateSourceTrigger=PropertyChanged}">
-                        <ContentControl Content="{Binding CurrentPage}"
-                                        Margin="90,0,0,0"
-                                        Background="Transparent">
-                        </ContentControl>
-                    </Grid>
-                </actipro:ScrollableOverflowPresenter>
+                      Classes.visible="{Binding CurrentPage, Converter={x:Static ObjectConverters.IsNotNull}, UpdateSourceTrigger=PropertyChanged}">
+                    <ContentControl Content="{Binding CurrentPage}"
+                                    Margin="0,0,0,0"
+                                    Background="Transparent">
+                    </ContentControl>
+                </Grid>
             </Grid>
             
         </DockPanel>
